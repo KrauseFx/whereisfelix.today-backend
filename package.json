@@ -1,0 +1,23 @@
+{
+  "name": "whereisfelix.today",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KrauseFx/whereisfelix.today.git"
+  },
+  "author": "KrauseFx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KrauseFx/whereisfelix.today/issues"
+  },
+  "homepage": "https://github.com/KrauseFx/whereisfelix.today#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "typescript": "^2.7.2"
+  }
+}
