@@ -1,0 +1,19 @@
+<iframe width="100%" height="100%" frameborder="0" style="border:0"
+src="https://www.google.com/maps/embed/v1/place?q=<%= currentCityText %>&key=AIzaSyCszlXazxyX12lpEE6QSRZg_jGBUU39izw" allowfullscreen></iframe>
+
+<div id="text">
+  <h1>Currently in <%= currentCityText %></h1>
+
+  <h3>Leaving for <%= nextCityText %> on <%= nextCityDate %></h3>
+</div>
+
+<style type="text/css">
+  #text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    padding: 20px;
+    font-family: Helvetica;
+  }
+</style>
