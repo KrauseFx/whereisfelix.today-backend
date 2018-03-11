@@ -85,6 +85,16 @@ setInterval(updateNomadListData, 60 * 1000);
 setInterval(updateMood, 60 * 1000);
 updateNomadListData();
 updateMood();
+function getDataDic() {
+    return {
+        currentCityText: currentCityText,
+        nextCityText: nextCityText,
+        nextCityDate: nextCityDate,
+        currentMoodLevel: currentMoodLevel,
+        currentMoodEmoji: currentMoodEmoji,
+        currentModeRelativeTime: currentModeRelativeTime
+    };
+}
 // Web server
 app.get("/", function (req, res) {
     // Because we're using the free Heroku tier for now
@@ -92,17 +102,20 @@ app.get("/", function (req, res) {
     // if that's the case, we'll have to wait until all data
     // is fetched
     if (allDataLoaded()) {
-        res.render("pages/index", {
-            currentCityText: currentCityText,
-            nextCityText: nextCityText,
-            nextCityDate: nextCityDate,
-            currentMoodLevel: currentMoodLevel,
-            currentMoodEmoji: currentMoodEmoji,
-            currentModeRelativeTime: currentModeRelativeTime
-        });
+        res.render("pages/index", getDataDic());
     }
     else {
         res.render("pages/loading");
+    }
+});
+app.get("/api.json", function (req, res) {
+    if (allDataLoaded()) {
+        res.json(getDataDic());
+    }
+    else {
+        res.json({
+            loading: true
+        });
     }
 });
 var port = process.env.PORT || 8080;
