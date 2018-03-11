@@ -8,10 +8,10 @@ let nomadlistUser = "krausefx";
 
 // Cache
 let currentCityText = "";
-let currentLat = 0.0;
-let currentLng = 0.0;
-let nextCityText = "";
-let nextCityDate = "";
+let currentLat: Number = null;
+let currentLng: Number = null;
+let nextCityText: String = null;
+let nextCityDate: String = null;
 
 // Refresher methods
 function updateNomadListData() {
@@ -31,19 +31,37 @@ function updateNomadListData() {
 
       nextCityText = next["city"] + ", " + next["country"];
       nextCityDate = next["date_start"];
+
+      console.log("Successfully loaded nomadlist data");
     }
   });
 }
+
+function allDataLoaded() {
+  if (currentCityText == null || nextCityText == null || nextCityDate == null) {
+    return false;
+  }
+  return true;
+}
+
 setInterval(updateNomadListData, 60000);
 updateNomadListData();
 
 // Web server
 app.get("/", function(req, res) {
-  res.render("pages/index", {
-    currentCityText: currentCityText,
-    nextCityText: nextCityText,
-    nextCityDate: nextCityDate
-  });
+  // Because we're using the free Heroku tier for now
+  // this means the server might just have started up
+  // if that's the case, we'll have to wait until all data
+  // is fetched
+  if (allDataLoaded()) {
+    res.render("pages/index", {
+      currentCityText: currentCityText,
+      nextCityText: nextCityText,
+      nextCityDate: nextCityDate
+    });
+  } else {
+    res.render("pages/loading");
+  }
 });
 
 var port = process.env.PORT || 8080;
