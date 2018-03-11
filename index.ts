@@ -1,6 +1,7 @@
 import * as express from "express";
 var needle = require("needle");
 var moment = require("moment");
+var ical = require("ical");
 
 var app = express();
 app.set("view engine", "ejs");
@@ -18,6 +19,7 @@ let nextCityDate: String = null;
 let currentMoodLevel: String = null;
 let currentMoodEmoji: String = null;
 let currentModeRelativeTime: String = null;
+let nextEvents: Array<any> = [];
 
 // Refresher methods
 function updateNomadListData() {
@@ -80,6 +82,40 @@ function updateMood() {
   });
 }
 
+function updateCalendar() {
+  let icsUrls = [process.env.ICS_URL, process.env.WORK_ICS_URL];
+  for (let index in icsUrls) {
+    ical.fromURL(icsUrls[index], {}, function(err, data) {
+      console.log("Loaded calendar data");
+      for (var k in data) {
+        if (data.hasOwnProperty(k)) {
+          var ev = data[k];
+
+          // only use calendar invites that within the next 7 days
+          if (
+            ev["type"] == "VEVENT" &&
+            moment(ev["start"]).isBetween(
+              new Date(),
+              moment(new Date()).add(5, "days")
+            ) &&
+            moment(ev["end"]).diff(ev["start"], "hours") < 24 // we don't want day/week long events
+          ) {
+            nextEvents.push({
+              rawStart: ev["start"],
+              start: moment(ev["start"]).fromNow(),
+              end: moment(ev["end"]).fromNow(),
+              duration: moment(ev["end"]).diff(ev["start"], "hours", true)
+            });
+          }
+        }
+      }
+      nextEvents.sort(function(a, b) {
+        return a["rawStart"] - b["rawStart"];
+      });
+    });
+  }
+}
+
 function allDataLoaded() {
   if (currentCityText == null || nextCityText == null || nextCityDate == null) {
     return false;
@@ -87,11 +123,13 @@ function allDataLoaded() {
   return true;
 }
 
-setInterval(updateNomadListData, 60 * 1000);
-setInterval(updateMood, 60 * 1000);
+setInterval(updateNomadListData, 60 * 60 * 1000);
+setInterval(updateMood, 30 * 60 * 1000);
+setInterval(updateCalendar, 15 * 60 * 1000);
 
 updateNomadListData();
 updateMood();
+updateCalendar();
 
 function getDataDic() {
   return {
@@ -100,7 +138,8 @@ function getDataDic() {
     nextCityDate: nextCityDate,
     currentMoodLevel: currentMoodLevel,
     currentMoodEmoji: currentMoodEmoji,
-    currentModeRelativeTime: currentModeRelativeTime
+    currentModeRelativeTime: currentModeRelativeTime,
+    nextEvents: nextEvents
   };
 }
 

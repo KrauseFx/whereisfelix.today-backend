@@ -8,6 +8,13 @@ src="https://www.google.com/maps/embed/v1/place?q=<%= currentCityText %>&key=AIz
 
   <h1 style="font-size: 100px"><%= currentMoodEmoji %></h1>
   <p>Felix feels <b><%= currentMoodLevel %></b> (<%= currentModeRelativeTime %>)</p>
+
+  <h1>Next things going on</h1>
+  <ul>
+  <% for (let i in nextEvents) { %>
+    <% let currentEvent = nextEvents[i] %>
+    <li>An event <b><%= currentEvent["start"] %></b> for <b><%= currentEvent["duration"] %> hour<%= currentEvent["duration"] == 1 ? "" : "s" %></b></li>
+  <% } %>
 </div>
 
 <style type="text/css">
