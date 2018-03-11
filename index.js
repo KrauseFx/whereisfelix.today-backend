@@ -10,7 +10,7 @@ app.set("view engine", "ejs");
 var nomadlistUser = "krausefx";
 var moodHostUrl = "https://krausefx-mood.herokuapp.com/";
 // Cache
-var currentCityText = "";
+var currentCityText = null;
 var currentLat = null;
 var currentLng = null;
 var nextCityText = null;
