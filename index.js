@@ -15,6 +15,7 @@ var currentLat = null;
 var currentLng = null;
 var nextCityText = null;
 var nextCityDate = null;
+var nextStays = [];
 var currentMoodLevel = null;
 var currentMoodEmoji = null;
 var currentModeRelativeTime = null;
@@ -35,7 +36,19 @@ function updateNomadListData() {
             currentLat = now["latitude"];
             currentLng = now["longitude"];
             nextCityText = next["city"] + ", " + next["country"];
-            nextCityDate = next["date_start"];
+            nextCityDate = moment(next["date_start"]).fromNow();
+            for (var index in parsedNomadListData["trips"]) {
+                var currentStay = parsedNomadListData["trips"][index];
+                if (currentStay["epoch_start"] > new Date().getTime() / 1000) {
+                    nextStays.unshift({
+                        name: currentStay["place"] + ", " + currentStay["country"],
+                        from: moment(currentStay["epoch_start"] * 1000).fromNow(),
+                        fromDate: moment(currentStay["epoch_start"] * 1000),
+                        "for": currentStay["length"],
+                        toDate: moment(currentStay["epoch_end"] * 1000)
+                    });
+                }
+            }
             console.log("Successfully loaded nomadlist data");
         }
     });
@@ -127,7 +140,7 @@ function allDataLoaded() {
     if (currentCityText == null || nextCityText == null || nextCityDate == null) {
         return false;
     }
-    if (nextEvents.length == 0) {
+    if (nextEvents.length == 0 || nextStays.length == 0) {
         return false;
     }
     return true;
@@ -148,7 +161,8 @@ function getDataDic() {
         currentMoodEmoji: currentMoodEmoji,
         currentModeRelativeTime: currentModeRelativeTime,
         nextConferences: nextConferences,
-        nextEvents: nextEvents
+        nextEvents: nextEvents,
+        nextStays: nextStays
     };
 }
 // Web server

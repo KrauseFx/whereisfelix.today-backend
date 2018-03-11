@@ -4,7 +4,7 @@ src="https://www.google.com/maps/embed/v1/place?q=<%= currentCityText %>&key=AIz
 <div id="text">
   <h1>Currently in <%= currentCityText %></h1>
 
-  <h3>Leaving for <%= nextCityText %> on <%= nextCityDate %></h3>
+  <h3>Leaving for <%= nextCityText %> <%= nextCityDate %></h3>
 
   <h1 style="font-size: 100px"><%= currentMoodEmoji %></h1>
   <p>Felix feels <b><%= currentMoodLevel %></b> (<%= currentModeRelativeTime %>)</p>
@@ -18,6 +18,17 @@ src="https://www.google.com/maps/embed/v1/place?q=<%= currentCityText %>&key=AIz
         </li>
     <% } %>
   </ul>
+
+  <h1>Next trips</h1>
+  <ul>
+    <% for (let i in nextStays) { %>
+    <% let currentStay = nextStays[i] %>
+      <li>
+        <b><%= currentStay.name %></b> <%= currentStay.from %> for <b><%= currentStay.for %></b> (<%= currentStay.fromDate.format("Do MMM") %> to <%= currentStay.toDate.format("Do MMM") %>)
+      </li>
+    <% } %>
+  </ul>
+
 
   <h1>Next things going on</h1>
   <ul>

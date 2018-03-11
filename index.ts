@@ -18,12 +18,21 @@ interface Conference {
   name: String;
 }
 
+interface Stay {
+  name: String;
+  from: String;
+  for: String;
+  toDate: Date;
+  fromDate: Date;
+}
+
 // Cache
 let currentCityText: String = null;
 let currentLat: Number = null;
 let currentLng: Number = null;
 let nextCityText: String = null;
 let nextCityDate: String = null;
+let nextStays: Array<Stay> = [];
 let currentMoodLevel: String = null;
 let currentMoodEmoji: String = null;
 let currentModeRelativeTime: String = null;
@@ -47,8 +56,20 @@ function updateNomadListData() {
       currentLng = now["longitude"];
 
       nextCityText = next["city"] + ", " + next["country"];
-      nextCityDate = next["date_start"];
+      nextCityDate = moment(next["date_start"]).fromNow();
 
+      for (let index in parsedNomadListData["trips"]) {
+        let currentStay = parsedNomadListData["trips"][index];
+        if (currentStay["epoch_start"] > new Date().getTime() / 1000) {
+          nextStays.unshift({
+            name: currentStay["place"] + ", " + currentStay["country"],
+            from: moment(currentStay["epoch_start"] * 1000).fromNow(),
+            fromDate: moment(currentStay["epoch_start"] * 1000),
+            for: currentStay["length"],
+            toDate: moment(currentStay["epoch_end"] * 1000)
+          });
+        }
+      }
       console.log("Successfully loaded nomadlist data");
     }
   });
@@ -146,7 +167,7 @@ function allDataLoaded() {
   if (currentCityText == null || nextCityText == null || nextCityDate == null) {
     return false;
   }
-  if (nextEvents.length == 0) {
+  if (nextEvents.length == 0 || nextStays.length == 0) {
     return false;
   }
   return true;
@@ -170,7 +191,8 @@ function getDataDic() {
     currentMoodEmoji: currentMoodEmoji,
     currentModeRelativeTime: currentModeRelativeTime,
     nextConferences: nextConferences,
-    nextEvents: nextEvents
+    nextEvents: nextEvents,
+    nextStays: nextStays
   };
 }
 
