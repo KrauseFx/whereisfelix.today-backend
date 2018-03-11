@@ -10,8 +10,16 @@ app.set("view engine", "ejs");
 let nomadlistUser = "krausefx";
 let moodHostUrl = "https://krausefx-mood.herokuapp.com/";
 
+// Interfaces
+interface Conference {
+  location: String;
+  dates: String;
+  link: String;
+  name: String;
+}
+
 // Cache
-let currentCityText = "";
+let currentCityText: String = null;
 let currentLat: Number = null;
 let currentLng: Number = null;
 let nextCityText: String = null;
@@ -20,6 +28,7 @@ let currentMoodLevel: String = null;
 let currentMoodEmoji: String = null;
 let currentModeRelativeTime: String = null;
 let nextEvents: Array<any> = [];
+let nextConferences: Array<Conference> = [];
 
 // Refresher methods
 function updateNomadListData() {
@@ -115,9 +124,29 @@ function updateCalendar() {
     });
   }
 }
+function updateConferences() {
+  // TODO: fetch them from https://github.com/KrauseFx/speaking
+  nextConferences = [
+    {
+      location: "Saint Petersburg, Russia",
+      dates: "20th, 21st April 2018",
+      name: "MobiusConf",
+      link: "https://mobiusconf.com/en/"
+    },
+    {
+      location: "Vienna, Austria",
+      dates: "16th - 18th May",
+      name: "WeAreDevelopers",
+      link: "https://www.wearedevelopers.com/congress/"
+    }
+  ];
+}
 
 function allDataLoaded() {
   if (currentCityText == null || nextCityText == null || nextCityDate == null) {
+    return false;
+  }
+  if (nextEvents.length == 0) {
     return false;
   }
   return true;
@@ -130,6 +159,7 @@ setInterval(updateCalendar, 15 * 60 * 1000);
 updateNomadListData();
 updateMood();
 updateCalendar();
+updateConferences();
 
 function getDataDic() {
   return {
@@ -139,6 +169,7 @@ function getDataDic() {
     currentMoodLevel: currentMoodLevel,
     currentMoodEmoji: currentMoodEmoji,
     currentModeRelativeTime: currentModeRelativeTime,
+    nextConferences: nextConferences,
     nextEvents: nextEvents
   };
 }

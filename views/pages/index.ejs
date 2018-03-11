@@ -8,6 +8,16 @@ src="https://www.google.com/maps/embed/v1/place?q=<%= currentCityText %>&key=AIz
 
   <h1 style="font-size: 100px"><%= currentMoodEmoji %></h1>
   <p>Felix feels <b><%= currentMoodLevel %></b> (<%= currentModeRelativeTime %>)</p>
+  <h1>Next conferences I speak at:</h1>
+  <ul>
+    <% for (let i in nextConferences) { %>
+    <% let currentConference = nextConferences[i] %>
+      <li>
+        <a href="<%= currentConference.link %>"><%= currentConference.name %></a> in
+        <%= currentConference.location %> (<%= currentConference.dates %>)
+        </li>
+    <% } %>
+  </ul>
 
   <h1>Next things going on</h1>
   <ul>

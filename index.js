@@ -19,6 +19,7 @@ var currentMoodLevel = null;
 var currentMoodEmoji = null;
 var currentModeRelativeTime = null;
 var nextEvents = [];
+var nextConferences = [];
 // Refresher methods
 function updateNomadListData() {
     var nomadlistUrl = "https://nomadlist.com/@" + nomadlistUser + ".json";
@@ -105,8 +106,28 @@ function updateCalendar() {
         });
     }
 }
+function updateConferences() {
+    // TODO: fetch them from https://github.com/KrauseFx/speaking
+    nextConferences = [
+        {
+            location: "Saint Petersburg, Russia",
+            dates: "20th, 21st April 2018",
+            name: "MobiusConf",
+            link: "https://mobiusconf.com/en/"
+        },
+        {
+            location: "Vienna, Austria",
+            dates: "16th - 18th May",
+            name: "WeAreDevelopers",
+            link: "https://www.wearedevelopers.com/congress/"
+        }
+    ];
+}
 function allDataLoaded() {
     if (currentCityText == null || nextCityText == null || nextCityDate == null) {
+        return false;
+    }
+    if (nextEvents.length == 0) {
         return false;
     }
     return true;
@@ -117,6 +138,7 @@ setInterval(updateCalendar, 15 * 60 * 1000);
 updateNomadListData();
 updateMood();
 updateCalendar();
+updateConferences();
 function getDataDic() {
     return {
         currentCityText: currentCityText,
@@ -125,6 +147,7 @@ function getDataDic() {
         currentMoodLevel: currentMoodLevel,
         currentMoodEmoji: currentMoodEmoji,
         currentModeRelativeTime: currentModeRelativeTime,
+        nextConferences: nextConferences,
         nextEvents: nextEvents
     };
 }
