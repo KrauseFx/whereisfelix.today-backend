@@ -9,6 +9,7 @@ app.set("view engine", "ejs");
 // Metadata
 let nomadlistUser = "krausefx";
 let moodHostUrl = "https://krausefx-mood.herokuapp.com/";
+let twitterUser = "krausefx";
 
 // Interfaces
 interface Conference {
@@ -192,7 +193,9 @@ function getDataDic() {
     currentModeRelativeTime: currentModeRelativeTime,
     nextConferences: nextConferences,
     nextEvents: nextEvents,
-    nextStays: nextStays
+    nextStays: nextStays,
+    profilePictureUrl:
+      "https://twitter.com/" + twitterUser + "/profile_image?size=original"
   };
 }
 

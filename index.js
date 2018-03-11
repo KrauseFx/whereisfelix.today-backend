@@ -9,6 +9,7 @@ app.set("view engine", "ejs");
 // Metadata
 var nomadlistUser = "krausefx";
 var moodHostUrl = "https://krausefx-mood.herokuapp.com/";
+var twitterUser = "krausefx";
 // Cache
 var currentCityText = null;
 var currentLat = null;
@@ -162,7 +163,8 @@ function getDataDic() {
         currentModeRelativeTime: currentModeRelativeTime,
         nextConferences: nextConferences,
         nextEvents: nextEvents,
-        nextStays: nextStays
+        nextStays: nextStays,
+        profilePictureUrl: "https://twitter.com/" + twitterUser + "/profile_image?size=original"
     };
 }
 // Web server
