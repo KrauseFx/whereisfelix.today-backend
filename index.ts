@@ -115,6 +115,7 @@ function updateMood() {
 }
 
 function updateCalendar() {
+  nextEvents = [];
   let icsUrls = [process.env.ICS_URL, process.env.WORK_ICS_URL];
   for (let index in icsUrls) {
     ical.fromURL(icsUrls[index], {}, function(err, data) {

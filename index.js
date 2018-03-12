@@ -94,6 +94,7 @@ function updateMood() {
     });
 }
 function updateCalendar() {
+    nextEvents = [];
     var icsUrls = [process.env.ICS_URL, process.env.WORK_ICS_URL];
     for (var index in icsUrls) {
         ical.fromURL(icsUrls[index], {}, function (err, data) {
