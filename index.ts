@@ -43,6 +43,7 @@ let nextConferences: Array<Conference> = [];
 
 // Refresher methods
 function updateNomadListData() {
+  nextStays = [];
   let nomadlistUrl = "https://nomadlist.com/@" + nomadlistUser + ".json";
 
   needle.get(nomadlistUrl, function(error, response, body) {
@@ -148,6 +149,7 @@ function updateCalendar() {
     });
   }
 }
+
 function updateConferences() {
   // TODO: fetch them from https://github.com/KrauseFx/speaking
   nextConferences = [

@@ -25,6 +25,7 @@ var nextEvents = [];
 var nextConferences = [];
 // Refresher methods
 function updateNomadListData() {
+    nextStays = [];
     var nomadlistUrl = "https://nomadlist.com/@" + nomadlistUser + ".json";
     needle.get(nomadlistUrl, function (error, response, body) {
         if (error) {
