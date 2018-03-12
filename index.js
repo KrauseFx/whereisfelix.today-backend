@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+process.env.tz = "America/New_York";
 var express = require("express");
 var needle = require("needle");
 var moment = require("moment");
