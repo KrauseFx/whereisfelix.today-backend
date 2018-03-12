@@ -68,32 +68,33 @@
       <hr />
 
       <h2>Upcoming events</h2>
-        <table>
-          <thead>
-            <tr>
-              <th class="hideOnMobile">Title</th>
-              <th>Starts</th>
-              <th>When</th>
-              <th>Duration</th>
-            </tr>
-          </thead>
-          <% for (let i in nextEvents) { %>
-          <% let currentEvent = nextEvents[i] %>
-            <tr>
-              <td class="hideOnMobile">Redacted</td>
-              <td>
-                <%= currentEvent["rawStart"].format("ddd HH:mm") %>
-              </td>
-              <td>
-                <%= currentEvent["start"] %>
-              </td>
-              <td>
-                for <%= currentEvent["duration"] %> hour<%= currentEvent["duration"] == 1 ? "" : "s" %>
-              </td>
-            </tr>
-          <% } %>
-        </table>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th class="hideOnMobile">Title</th>
+            <th>Starts</th>
+            <th>When</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <% for (let i in nextEvents) { %>
+        <% let currentEvent = nextEvents[i] %>
+          <tr>
+            <td class="hideOnMobile">Redacted</td>
+            <td>
+              <%= currentEvent["rawStart"].format("ddd HH:mm") %>
+            </td>
+            <td>
+              <%= currentEvent["start"] %>
+            </td>
+            <td>
+              for <%= currentEvent["duration"] %> hour<%= currentEvent["duration"] == 1 ? "" : "s" %>
+            </td>
+          </tr>
+        <% } %>
+      </table>
+      
+      <footer>All my trips are available on <a href="https://nomadlist.com/@krausefx" target="_blank">nomadlist.com</a></footer>
     </div>
     
     <style type="text/css">
@@ -194,6 +195,13 @@
       }
       tr:hover td {
         color: #009;
+      }
+      footer {
+        color: #777;
+        text-align: right;
+        margin-right: 15px;
+        margin-bottom: 10px;
+        font-size: 14px;
       }
       @media all and (max-width:720px) {
         td {
