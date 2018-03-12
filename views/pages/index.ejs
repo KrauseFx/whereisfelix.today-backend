@@ -1,51 +1,212 @@
-<iframe width="100%" height="100%" frameborder="0" style="border:0"
-src="https://www.google.com/maps/embed/v1/place?q=<%= currentCityText %>&key=AIzaSyCszlXazxyX12lpEE6QSRZg_jGBUU39izw" allowfullscreen></iframe>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>WhereIsFelix.today</title>
+    <meta name="description" content="Where is Felix?">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+  </head>
 
-<div id="text">
-  <img src="<%= profilePictureUrl %>" />
-  <h1>Currently in <%= currentCityText %></h1>
+  <body>
+    <div id="map"></div>
 
-  <h3>Leaving for <%= nextCityText %> <%= nextCityDate %></h3>
+    <div id="content">
+      <img src="<%= profilePictureUrl %>" id="profilePicture" />
+      <h1>Felix is currently in <b><%= currentCityText %></b></h1>
+      <h3>Leaving for <%= nextCityText %> <%= nextCityDate %></h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Upcoming trips</th>
+            <th>From</th>
+            <th>To</th>
+          </tr>
+        </thead>
+        <% for (let i in nextStays) { %>
+        <% let currentStay = nextStays[i] %>
+          <tr>
+            <td>
+              <%= currentStay.name %>
+            </td><td>
+              <%= currentStay.fromDate.format("DD MMM") %>
+            </td><td>
+              <%= currentStay.toDate.format("DD MMM") %>
+            </td>
+          </tr>
+        <% } %>
+      </table>
+      <hr />
+      <h1 style="margin-bottom: 30px">
+        Felix feels <b><%= currentMoodLevel %></b>
+        <span class="footnote">(<%= currentModeRelativeTime %>)</span>
+      </h1>
 
-  <h1 style="font-size: 100px"><%= currentMoodEmoji %></h1>
-  <p>Felix feels <b><%= currentMoodLevel %></b> (<%= currentModeRelativeTime %>)</p>
-  <h1>Next conferences I speak at:</h1>
-  <ul>
-    <% for (let i in nextConferences) { %>
-    <% let currentConference = nextConferences[i] %>
-      <li>
-        <a href="<%= currentConference.link %>"><%= currentConference.name %></a> in
-        <%= currentConference.location %> (<%= currentConference.dates %>)
-        </li>
-    <% } %>
-  </ul>
+      <hr />
+      <h2>Upcoming conferences</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Conference</th>
+            <th>City</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <% for (let i in nextConferences) { %>
+        <% let currentConference = nextConferences[i] %>
+          <tr>
+            <td>
+              <a href="<%= currentConference.link %>" target="_blank"><%= currentConference.name %></a>
+            </td><td>
+              <%= currentConference.location %>
+            </td><td>
+              <%= currentConference.dates %>
+            </td>
+          </tr>
+        <% } %>
+      </table>
 
-  <h1>Next trips</h1>
-  <ul>
-    <% for (let i in nextStays) { %>
-    <% let currentStay = nextStays[i] %>
-      <li>
-        <b><%= currentStay.name %></b> <%= currentStay.from %> for <b><%= currentStay.for %></b> (<%= currentStay.fromDate.format("Do MMM") %> to <%= currentStay.toDate.format("Do MMM") %>)
-      </li>
-    <% } %>
-  </ul>
+      <hr />
 
+      <h2>Upcoming events</h2>
+        <table>
+          <thead>
+            <tr>
+              <th class="hideOnMobile">Title</th>
+              <th>Starts</th>
+              <th>When</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <% for (let i in nextEvents) { %>
+          <% let currentEvent = nextEvents[i] %>
+            <tr>
+              <td class="hideOnMobile">Redacted</td>
+              <td>
+                <%= currentEvent["rawStart"].format("ddd HH:mm") %>
+              </td>
+              <td>
+                <%= currentEvent["start"] %>
+              </td>
+              <td>
+                for <%= currentEvent["duration"] %> hour<%= currentEvent["duration"] == 1 ? "" : "s" %>
+              </td>
+            </tr>
+          <% } %>
+        </table>
+      </div>
+    </div>
+    
+    <style type="text/css">
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 300;
+        width: 100%;
+        height: 100%;
+      }
 
-  <h1>Next things going on</h1>
-  <ul>
-  <% for (let i in nextEvents) { %>
-    <% let currentEvent = nextEvents[i] %>
-    <li>An event <b><%= currentEvent["start"] %></b> for <b><%= currentEvent["duration"] %> hour<%= currentEvent["duration"] == 1 ? "" : "s" %></b></li>
-  <% } %>
-</div>
+      #map {
+        width: 100%;
+        height: 200px;
+        background-image: url("<%- mapsUrl %>");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+      }
 
-<style type="text/css">
-  #text {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: white;
-    padding: 20px;
-    font-family: Helvetica;
-  }
-</style>
+      #profilePicture {
+        width: 128px;
+        height: 128px;
+        border-radius: 70px;
+        border: 5px white solid;
+        position: absolute;
+        top: 130px;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+      }
+
+      #content {
+        padding: 25px;
+        padding-top: 80px;
+        background-color: rgb(249, 249, 249);
+      }
+      #content > h1 {
+        text-align: center;
+        font-weight: normal;
+      }
+      b {
+        font-weight: normal;
+        background-color: rgba(255, 255, 0, 0.35);
+        padding: 5px;
+        margin-left: -5px;
+      }
+      #content > h3 {
+        text-align: center;
+        margin-top: -15px;
+        margin-bottom: 30px;
+        font-weight: normal;
+      }
+      #content > h2 {
+        text-align: center;
+        font-weight: normal;
+      }
+      hr {
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(40, 40, 40, 0.3), rgba(0, 0, 0, 0));
+        margin-bottom: 35px;
+      }
+      a {
+        color: #2a7ae2 !important;
+        text-decoration: none !important;
+      }
+      li {
+        margin-bottom: 6px;
+      }
+      .footnote {
+        font-size: 14px;
+        color: #666;
+      }
+      #content > table {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 30px;
+      }
+      table tr {
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        font-size: 14px;
+        color: #039;
+        border-bottom: 1px solid #6678b1;
+        padding: 10px 8px;
+      }
+      td {
+        color: #669;
+        padding: 9px 30px 0 30px;
+      }
+      tr:hover td {
+        color: #009;
+      }
+      @media all and (max-width:720px) {
+        td {
+          padding: 5px 5px 0 5px;
+        }
+        #content {
+          padding: 10px;
+          padding-top: 80px;
+        }
+        .footnote {
+          display: block;
+          margin-top: 10px;
+        }
+        .hideOnMobile {
+          display: none; 
+        }
+      }
+    </style>
+  </body>
+</html>

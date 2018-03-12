@@ -10,6 +10,7 @@ app.set("view engine", "ejs");
 var nomadlistUser = "krausefx";
 var moodHostUrl = "https://krausefx-mood.herokuapp.com/";
 var twitterUser = "krausefx";
+var googleMapsKey = "AIzaSyDeiw5iiluUP6Txt7H584no1adlsDj-jUc";
 // Cache
 var currentCityText = null;
 var currentLat = null;
@@ -33,10 +34,10 @@ function updateNomadListData() {
             var parsedNomadListData = JSON.parse(body);
             var now = parsedNomadListData["location"]["now"];
             var next = parsedNomadListData["location"]["next"];
-            currentCityText = now["city"] + ", " + now["country"];
+            currentCityText = now["city"] + ", " + now["country_code"];
             currentLat = now["latitude"];
             currentLng = now["longitude"];
-            nextCityText = next["city"] + ", " + next["country"];
+            nextCityText = next["city"];
             nextCityDate = moment(next["date_start"]).fromNow();
             for (var index in parsedNomadListData["trips"]) {
                 var currentStay = parsedNomadListData["trips"][index];
@@ -106,7 +107,7 @@ function updateCalendar() {
                         moment(ev["end"]).diff(ev["start"], "hours") < 24 // we don't want day/week long events
                     ) {
                         nextEvents.push({
-                            rawStart: ev["start"],
+                            rawStart: moment(ev["start"]),
                             start: moment(ev["start"]).fromNow(),
                             end: moment(ev["end"]).fromNow(),
                             duration: moment(ev["end"]).diff(ev["start"], "hours", true)
@@ -124,18 +125,27 @@ function updateConferences() {
     // TODO: fetch them from https://github.com/KrauseFx/speaking
     nextConferences = [
         {
-            location: "Saint Petersburg, Russia",
-            dates: "20th, 21st April 2018",
+            location: "St Petersburg, Russia",
+            dates: "20 - 21 Apr",
             name: "MobiusConf",
             link: "https://mobiusconf.com/en/"
         },
         {
             location: "Vienna, Austria",
-            dates: "16th - 18th May",
-            name: "WeAreDevelopers",
+            dates: "16 - 18 May",
+            name: "WeAreDevs",
             link: "https://www.wearedevelopers.com/congress/"
         }
     ];
+}
+function generateMapsUrl() {
+    return ("https://maps.googleapis.com/maps/api/staticmap?center=" +
+        currentCityText +
+        "&zoom=10&size=1200x190&scale=2&maptype=roadmap" +
+        // "&markers=color:blue%7Clabel:Felix%7C" +
+        // currentCityText +
+        "&key=" +
+        googleMapsKey);
 }
 function allDataLoaded() {
     if (currentCityText == null || nextCityText == null || nextCityDate == null) {
@@ -164,6 +174,7 @@ function getDataDic() {
         nextConferences: nextConferences,
         nextEvents: nextEvents,
         nextStays: nextStays,
+        mapsUrl: generateMapsUrl(),
         profilePictureUrl: "https://twitter.com/" + twitterUser + "/profile_image?size=original"
     };
 }
