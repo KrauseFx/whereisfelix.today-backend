@@ -1,5 +1,3 @@
-process.env.tz = "America/New_York";
-
 import * as express from "express";
 var needle = require("needle");
 var moment = require("moment");
