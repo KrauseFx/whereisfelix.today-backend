@@ -9,7 +9,7 @@ app.set("view engine", "ejs");
 // Metadata
 var nomadlistUser = "krausefx";
 var moodHostUrl = "https://krausefx-mood.herokuapp.com/";
-var twitterUser = "krausefx";
+var facebookId = "100000723486971";
 var googleMapsKey = "AIzaSyDeiw5iiluUP6Txt7H584no1adlsDj-jUc";
 // Cache
 var currentCityText = null;
@@ -156,6 +156,9 @@ function allDataLoaded() {
     if (nextEvents.length == 0 || nextStays.length == 0) {
         return false;
     }
+    if (currentMoodLevel == null) {
+        return false;
+    }
     return true;
 }
 setInterval(updateNomadListData, 60 * 60 * 1000);
@@ -177,7 +180,7 @@ function getDataDic() {
         nextEvents: nextEvents,
         nextStays: nextStays,
         mapsUrl: generateMapsUrl(),
-        profilePictureUrl: "https://twitter.com/" + twitterUser + "/profile_image?size=original"
+        profilePictureUrl: "https://graph.facebook.com/" + facebookId + "/picture?type=large"
     };
 }
 // Web server

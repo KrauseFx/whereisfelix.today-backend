@@ -9,7 +9,7 @@ app.set("view engine", "ejs");
 // Metadata
 let nomadlistUser = "krausefx";
 let moodHostUrl = "https://krausefx-mood.herokuapp.com/";
-let twitterUser = "krausefx";
+let facebookId = "100000723486971";
 let googleMapsKey = "AIzaSyDeiw5iiluUP6Txt7H584no1adlsDj-jUc";
 
 // Interfaces
@@ -215,7 +215,7 @@ function getDataDic() {
     nextStays: nextStays,
     mapsUrl: generateMapsUrl(),
     profilePictureUrl:
-      "https://twitter.com/" + twitterUser + "/profile_image?size=original"
+      "https://graph.facebook.com/" + facebookId + "/picture?type=large"
   };
 }
 
