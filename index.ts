@@ -187,6 +187,9 @@ function allDataLoaded() {
   if (nextEvents.length == 0 || nextStays.length == 0) {
     return false;
   }
+  if (currentMoodLevel == null) {
+    return false;
+  }
   return true;
 }
 
