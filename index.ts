@@ -138,7 +138,10 @@ function updateCalendar() {
               rawStart: moment(ev["start"]),
               start: moment(ev["start"]).fromNow(),
               end: moment(ev["end"]).fromNow(),
-              duration: moment(ev["end"]).diff(ev["start"], "hours", true)
+              duration:
+                Math.round(
+                  moment(ev["end"]).diff(ev["start"], "hours", true) * 10.0
+                ) / 10.0
             });
           }
         }
