@@ -72,7 +72,6 @@
         <thead>
           <tr>
             <th class="hideOnMobile">Title</th>
-            <th>Starts</th>
             <th>When</th>
             <th>Duration</th>
           </tr>
@@ -81,9 +80,6 @@
         <% let currentEvent = nextEvents[i] %>
           <tr>
             <td class="hideOnMobile">Redacted</td>
-            <td>
-              <%= currentEvent["rawStart"].format("ddd HH:mm") %>
-            </td>
             <td>
               <%= currentEvent["start"] %>
             </td>
