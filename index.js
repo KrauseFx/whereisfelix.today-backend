@@ -153,7 +153,8 @@ function allDataLoaded() {
     if (currentCityText == null || nextCityText == null || nextCityDate == null) {
         return false;
     }
-    if (nextEvents.length == 0 || nextStays.length == 0) {
+    if (nextStays.length == 0) {
+        // nextEvents.length == 0 // doesn't work if a got nothing on my calendar
         return false;
     }
     if (currentMoodLevel == null) {
