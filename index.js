@@ -23,6 +23,7 @@ var currentMoodEmoji = null;
 var currentModeRelativeTime = null;
 var nextEvents = [];
 var nextConferences = [];
+var recentPhotos = null;
 // Refresher methods
 function updateNomadListData() {
     nextStays = [];
@@ -94,6 +95,33 @@ function updateMood() {
         }
     });
 }
+function fetchMostRecentPhotos() {
+    var facebookUrl = "https://graph.facebook.com/v2.12/" +
+        process.env.FACEBOOK_USER_ID +
+        "/photos";
+    console.log(facebookUrl);
+    needle.request("get", facebookUrl, "type=uploaded&fields=name,images,link&limit=8", {
+        headers: {
+            Authorization: "Bearer " + process.env.FACEBOOK_ACCESS_TOKEN
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log(error);
+        }
+        else if (response.statusCode == 200) {
+            recentPhotos = [];
+            var mostRecentData = response["body"]["data"];
+            for (var i in mostRecentData) {
+                var currentPhoto = mostRecentData[i];
+                recentPhotos.push({
+                    text: currentPhoto["name"],
+                    url: currentPhoto["images"][0]["source"],
+                    link: currentPhoto["link"]
+                });
+            }
+        }
+    });
+}
 function updateCalendar() {
     nextEvents = [];
     var icsUrls = [process.env.ICS_URL, process.env.WORK_ICS_URL];
@@ -160,11 +188,16 @@ function allDataLoaded() {
     if (currentMoodLevel == null) {
         return false;
     }
+    if (recentPhotos.length == 0) {
+        return false;
+    }
     return true;
 }
 setInterval(updateNomadListData, 60 * 60 * 1000);
 setInterval(updateMood, 30 * 60 * 1000);
+setInterval(fetchMostRecentPhotos, 30 * 60 * 1000);
 setInterval(updateCalendar, 15 * 60 * 1000);
+fetchMostRecentPhotos();
 updateNomadListData();
 updateMood();
 updateCalendar();
@@ -181,7 +214,8 @@ function getDataDic() {
         nextEvents: nextEvents,
         nextStays: nextStays,
         mapsUrl: generateMapsUrl(),
-        profilePictureUrl: "https://graph.facebook.com/" + facebookId + "/picture?type=large"
+        profilePictureUrl: "https://graph.facebook.com/" + facebookId + "/picture?type=large",
+        recentPhotos: recentPhotos
     };
 }
 // Web server

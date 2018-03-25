@@ -67,6 +67,16 @@
 
       <hr />
 
+      <h2>Recent photos</h2>
+      <div class="recentPhotos">
+        <% for (let i in recentPhotos) { %>
+          <% let currentPhoto = recentPhotos[i] %>
+          <span class="recentPhoto" style="background-image: url('<%= currentPhoto.url %>')" onclick="window.open('<%= currentPhoto.link %>', '_blank')"></span>
+        <% } %>
+      </div>
+
+      <hr />
+
       <% if (nextEvents.length > 0) { %>
         <h2>Upcoming events</h2>
         <table>
@@ -211,6 +221,23 @@
         font-size: 14px;
         margin-top: -10px;
       }
+      .recentPhotos {
+        width: 100%;
+        white-space: nowrap;
+        overflow-y: none;
+        overflow-x: scroll;
+        height: 310px;
+      }
+      .recentPhotos > .recentPhoto {
+        height: 300px;
+        width: 300px;
+        border: 1px solid #DDD;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        display: inline-block;
+        cursor: pointer;
+      }
       @media all and (max-width:720px) {
         td {
           padding: 5px 5px 0 5px;
@@ -225,6 +252,13 @@
         }
         .hideOnMobile {
           display: none; 
+        }
+        .recentPhotos {
+          height: 150px;
+        }
+        .recentPhotos > .recentPhoto {
+          height: 140px;
+          width: 140px;
         }
       }
     </style>

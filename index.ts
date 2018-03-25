@@ -28,6 +28,12 @@ interface Stay {
   fromDate: Date;
 }
 
+interface Photo {
+  text: String;
+  url: String;
+  link: String;
+}
+
 // Cache
 let currentCityText: String = null;
 let currentLat: Number = null;
@@ -40,6 +46,7 @@ let currentMoodEmoji: String = null;
 let currentModeRelativeTime: String = null;
 let nextEvents: Array<any> = [];
 let nextConferences: Array<Conference> = [];
+let recentPhotos: Array<Photo> = null;
 
 // Refresher methods
 function updateNomadListData() {
@@ -113,6 +120,41 @@ function updateMood() {
       currentModeRelativeTime = moment(new Date(parsedBody["time"])).fromNow();
     }
   });
+}
+
+function fetchMostRecentPhotos() {
+  let facebookUrl =
+    "https://graph.facebook.com/v2.12/" +
+    process.env.FACEBOOK_USER_ID +
+    "/photos";
+  console.log(facebookUrl);
+  needle.request(
+    "get",
+    facebookUrl,
+    "type=uploaded&fields=name,images,link&limit=8",
+    {
+      headers: {
+        Authorization: "Bearer " + process.env.FACEBOOK_ACCESS_TOKEN
+      }
+    },
+    function(error, response, body) {
+      if (error) {
+        console.log(error);
+      } else if (response.statusCode == 200) {
+        recentPhotos = [];
+        let mostRecentData = response["body"]["data"];
+        for (var i in mostRecentData) {
+          let currentPhoto = mostRecentData[i];
+
+          recentPhotos.push({
+            text: currentPhoto["name"],
+            url: currentPhoto["images"][0]["source"],
+            link: currentPhoto["link"]
+          });
+        }
+      }
+    }
+  );
 }
 
 function updateCalendar() {
@@ -194,13 +236,18 @@ function allDataLoaded() {
   if (currentMoodLevel == null) {
     return false;
   }
+  if (recentPhotos.length == 0) {
+    return false;
+  }
   return true;
 }
 
 setInterval(updateNomadListData, 60 * 60 * 1000);
 setInterval(updateMood, 30 * 60 * 1000);
+setInterval(fetchMostRecentPhotos, 30 * 60 * 1000);
 setInterval(updateCalendar, 15 * 60 * 1000);
 
+fetchMostRecentPhotos();
 updateNomadListData();
 updateMood();
 updateCalendar();
@@ -219,7 +266,8 @@ function getDataDic() {
     nextStays: nextStays,
     mapsUrl: generateMapsUrl(),
     profilePictureUrl:
-      "https://graph.facebook.com/" + facebookId + "/picture?type=large"
+      "https://graph.facebook.com/" + facebookId + "/picture?type=large",
+    recentPhotos: recentPhotos
   };
 }
 
