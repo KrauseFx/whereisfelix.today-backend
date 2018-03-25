@@ -236,7 +236,7 @@ function allDataLoaded() {
   if (currentMoodLevel == null) {
     return false;
   }
-  if (recentPhotos.length == 0) {
+  if (recentPhotos == null) {
     return false;
   }
   return true;
