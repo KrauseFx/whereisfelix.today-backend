@@ -127,7 +127,6 @@ function fetchMostRecentPhotos() {
     "https://graph.facebook.com/v2.12/" +
     process.env.FACEBOOK_USER_ID +
     "/photos";
-  console.log(facebookUrl);
   needle.request(
     "get",
     facebookUrl,
@@ -138,9 +137,7 @@ function fetchMostRecentPhotos() {
       }
     },
     function(error, response, body) {
-      if (error) {
-        console.log(error);
-      } else if (response.statusCode == 200) {
+      if (response.statusCode == 200) {
         recentPhotos = [];
         let mostRecentData = response["body"]["data"];
         for (var i in mostRecentData) {
@@ -152,6 +149,9 @@ function fetchMostRecentPhotos() {
             link: currentPhoto["link"]
           });
         }
+      } else {
+        console.log(error);
+        console.log(response);
       }
     }
   );
