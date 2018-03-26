@@ -188,9 +188,9 @@ function allDataLoaded() {
     if (currentMoodLevel == null) {
         return false;
     }
-    if (recentPhotos == null) {
-        return false;
-    }
+    // if (recentPhotos == null) {
+    //   return false;
+    // }
     return true;
 }
 setInterval(updateNomadListData, 60 * 60 * 1000);
