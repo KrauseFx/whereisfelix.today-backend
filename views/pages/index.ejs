@@ -67,13 +67,15 @@
 
       <hr />
 
-      <h2>Recent photos</h2>
-      <div class="recentPhotos">
-        <% for (let i in recentPhotos) { %>
-          <% let currentPhoto = recentPhotos[i] %>
-          <span class="recentPhoto" style="background-image: url('<%= currentPhoto.url %>')" onclick="window.open('<%= currentPhoto.link %>', '_blank')"></span>
-        <% } %>
-      </div>
+      <% if (recentPhotos != null && recentPhotos.length > 0) { %>
+        <h2>Recent photos</h2>
+        <div class="recentPhotos">
+          <% for (let i in recentPhotos) { %>
+            <% let currentPhoto = recentPhotos[i] %>
+            <span class="recentPhoto" style="background-image: url('<%= currentPhoto.url %>')" onclick="window.open('<%= currentPhoto.link %>', '_blank')"></span>
+          <% } %>
+        </div>
+      <% } %>
 
       <hr />
 
