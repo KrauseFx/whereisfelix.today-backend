@@ -105,16 +105,16 @@ function updateMood() {
           currentMoodEmoji = "😎";
           break;
         case 2:
-          currentMoodLevel = "down, worried";
-          currentMoodEmoji = "😐";
+          currentMoodLevel = "okay";
+          currentMoodEmoji = "🙃";
           break;
         case 1:
-          currentMoodLevel = "Sad, unhappy";
-          currentMoodEmoji = "😔";
+          currentMoodLevel = "okay";
+          currentMoodEmoji = "🙃";
           break;
         case 0:
-          currentMoodLevel = "Miserable, nervous";
-          currentMoodEmoji = "😩";
+          currentMoodLevel = "okay";
+          currentMoodEmoji = "🙃";
           break;
       }
       currentModeRelativeTime = moment(new Date(parsedBody["time"])).fromNow();
