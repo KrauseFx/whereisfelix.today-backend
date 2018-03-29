@@ -265,6 +265,7 @@ function getDataDic() {
     nextEvents: nextEvents,
     nextStays: nextStays,
     mapsUrl: generateMapsUrl(),
+    localTime: moment().format("hh:mm a"), // TODO: actually take the current time zone
     profilePictureUrl:
       "https://graph.facebook.com/" + facebookId + "/picture?type=large",
     recentPhotos: recentPhotos
