@@ -269,7 +269,7 @@ function getDataDic() {
     nextStays: nextStays,
     mapsUrl: generateMapsUrl(),
     localTime: moment()
-      .add(12, "hours")
+      .subtract(3, "hours")
       .format("hh:mm a"), // TODO: actually take the current time zone
     profilePictureUrl:
       "https://graph.facebook.com/" + facebookId + "/picture?type=large",

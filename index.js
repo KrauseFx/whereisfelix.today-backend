@@ -215,7 +215,7 @@ function getDataDic() {
         nextStays: nextStays,
         mapsUrl: generateMapsUrl(),
         localTime: moment()
-            .add(12, "hours")
+            .subtract(3, "hours")
             .format("hh:mm a"),
         profilePictureUrl: "https://graph.facebook.com/" + facebookId + "/picture?type=large",
         recentPhotos: recentPhotos
