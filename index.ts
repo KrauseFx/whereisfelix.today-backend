@@ -47,6 +47,7 @@ let currentMoodRelativeTime: String = null;
 let nextEvents: Array<any> = [];
 let nextConferences: Array<Conference> = [];
 let recentPhotos: Array<Photo> = null;
+let isMoving: Boolean;
 
 // Refresher methods
 function updateNomadListData() {
@@ -64,15 +65,15 @@ function updateNomadListData() {
       if (now["date_start"] == moment().format("YYYY-MM-DD")) {
         // Today I'm switching cities, let's show a "moving" status on the website
         let previous = parsedNomadListData["location"]["previously"];
-        currentCityText = previous["city"] + " ✈️ " + now["city"];
-        currentLat = previous["latitude"];
-        currentLng = previous["longitude"];
+        currentCityText = "✈️ " + now["city"];
+        isMoving = true;
       } else {
         currentCityText = now["city"] + ", " + now["country_code"];
-        currentLat = now["latitude"];
-        currentLng = now["longitude"];
+        isMoving = false;
       }
 
+      currentLat = now["latitude"];
+      currentLng = now["longitude"];
       nextCityText = next["city"];
       nextCityDate = moment(next["date_start"]).fromNow();
 
@@ -270,6 +271,7 @@ function getDataDic() {
     nextConferences: nextConferences,
     nextEvents: nextEvents,
     nextStays: nextStays,
+    isMoving: isMoving,
     mapsUrl: generateMapsUrl(),
     localTime: moment()
       .subtract(3, "hours")
