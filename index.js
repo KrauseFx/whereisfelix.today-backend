@@ -20,7 +20,7 @@ var nextCityDate = null;
 var nextStays = [];
 var currentMoodLevel = null;
 var currentMoodEmoji = null;
-var currentModeRelativeTime = null;
+var currentMoodRelativeTime = null;
 var nextEvents = [];
 var nextConferences = [];
 var recentPhotos = null;
@@ -91,7 +91,7 @@ function updateMood() {
                     currentMoodEmoji = "🙃";
                     break;
             }
-            currentModeRelativeTime = moment(new Date(parsedBody["time"])).fromNow();
+            currentMoodRelativeTime = moment(new Date(parsedBody["time"])).fromNow();
         }
     });
 }
@@ -209,7 +209,7 @@ function getDataDic() {
         nextCityDate: nextCityDate,
         currentMoodLevel: currentMoodLevel,
         currentMoodEmoji: currentMoodEmoji,
-        currentModeRelativeTime: currentModeRelativeTime,
+        currentMoodRelativeTime: currentMoodRelativeTime,
         nextConferences: nextConferences,
         nextEvents: nextEvents,
         nextStays: nextStays,

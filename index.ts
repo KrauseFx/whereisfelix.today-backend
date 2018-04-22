@@ -43,7 +43,7 @@ let nextCityDate: String = null;
 let nextStays: Array<Stay> = [];
 let currentMoodLevel: String = null;
 let currentMoodEmoji: String = null;
-let currentModeRelativeTime: String = null;
+let currentMoodRelativeTime: String = null;
 let nextEvents: Array<any> = [];
 let nextConferences: Array<Conference> = [];
 let recentPhotos: Array<Photo> = null;
@@ -120,7 +120,7 @@ function updateMood() {
           currentMoodEmoji = "🙃";
           break;
       }
-      currentModeRelativeTime = moment(new Date(parsedBody["time"])).fromNow();
+      currentMoodRelativeTime = moment(new Date(parsedBody["time"])).fromNow();
     }
   });
 }
@@ -263,7 +263,7 @@ function getDataDic() {
     nextCityDate: nextCityDate,
     currentMoodLevel: currentMoodLevel,
     currentMoodEmoji: currentMoodEmoji,
-    currentModeRelativeTime: currentModeRelativeTime,
+    currentMoodRelativeTime: currentMoodRelativeTime,
     nextConferences: nextConferences,
     nextEvents: nextEvents,
     nextStays: nextStays,
