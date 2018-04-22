@@ -24,6 +24,7 @@ var currentMoodRelativeTime = null;
 var nextEvents = [];
 var nextConferences = [];
 var recentPhotos = null;
+var isMoving;
 // Refresher methods
 function updateNomadListData() {
     nextStays = [];
@@ -39,15 +40,15 @@ function updateNomadListData() {
             if (now["date_start"] == moment().format("YYYY-MM-DD")) {
                 // Today I'm switching cities, let's show a "moving" status on the website
                 var previous = parsedNomadListData["location"]["previously"];
-                currentCityText = previous["city"] + " ✈️ " + now["city"];
-                currentLat = previous["latitude"];
-                currentLng = previous["longitude"];
+                currentCityText = "✈️ " + now["city"];
+                isMoving = true;
             }
             else {
                 currentCityText = now["city"] + ", " + now["country_code"];
-                currentLat = now["latitude"];
-                currentLng = now["longitude"];
+                isMoving = false;
             }
+            currentLat = now["latitude"];
+            currentLng = now["longitude"];
             nextCityText = next["city"];
             nextCityDate = moment(next["date_start"]).fromNow();
             for (var index in parsedNomadListData["trips"]) {
@@ -220,6 +221,7 @@ function getDataDic() {
         nextConferences: nextConferences,
         nextEvents: nextEvents,
         nextStays: nextStays,
+        isMoving: isMoving,
         mapsUrl: generateMapsUrl(),
         localTime: moment()
             .subtract(3, "hours")
