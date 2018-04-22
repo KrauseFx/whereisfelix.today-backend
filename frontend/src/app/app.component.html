@@ -7,7 +7,11 @@
     <meta name="viewport" content="width=device-width, user-scalable=no" />
   </head>
 
-  <body *ngIf="data">
+  <body *ngIf="data.loading">
+    <h1 id="findingFelix">Finding Felix...</h1>
+  </body>
+
+  <body *ngIf="data.currentCityText">
     <div id="map" style="background-image: url('{{data.mapsUrl}}');"></div>
 
     <div id="content">

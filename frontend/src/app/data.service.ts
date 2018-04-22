@@ -20,6 +20,7 @@ export interface Conference {
 }
 
 export interface MyData {
+  loading: boolean;
   currentCityText: string;
   nextCityText: string;
   nextCityDate: string;
