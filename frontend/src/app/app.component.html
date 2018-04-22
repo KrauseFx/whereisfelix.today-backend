@@ -16,7 +16,8 @@
 
     <div id="content">
       <img src="{{data.profilePictureUrl}}" id="profilePicture" />
-      <h1>Felix is currently in <b>{{data.currentCityText}}</b></h1>
+      <h1 *ngIf="!data.isMoving">Felix is currently in <b>{{data.currentCityText}}</b></h1>
+      <h1 *ngIf="data.isMoving">Felix is currently moving to <b>{{data.currentCityText}}</b></h1>
       <h3>Leaving for {{data.nextCityText}} {{data.nextCityDate}}</h3>
       <table>
         <thead>
