@@ -23,13 +23,17 @@
           </tr>
         </thead>
         <tbody>
-          <app-row-item></app-row-item>
+          <tr *ngFor="let currentStay of data.nextStays">
+            <td>{{currentStay.name}}</td>
+            <td>{{currentStay.fromDate | amDateFormat:'DD MMM'}}</td>
+            <td>{{currentStay.toDate | amDateFormat:'DD MMM'}}</td>
+          </tr>
         </tbody>
       </table>
       <hr />
       <h1 style="margin-bottom: 30px">
         Felix feels <b>{{data.currentMoodLevel}}</b> {{data.currentMoodEmoji}}
-        <span class="footnote">({{data.currentModeRelativeTime}})</span>
+        <span class="footnote">({{data.currentMoodRelativeTime}})</span>
       </h1>
 
       <hr />
@@ -42,7 +46,15 @@
             <th>Date</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <tr *ngFor="let currentConference of data.nextConferences">
+            <td>
+              <a href="{{currentConference.link}}">{{currentConference.name}}</a>
+            </td>
+            <td>{{currentConference.location}}</td>
+            <td>{{currentConference.dates}}</td>
+          </tr>
+        </tbody>
       </table>
 
       <hr />
@@ -51,6 +63,40 @@
       <hr />
 
       <!-- TODO: insert most recent photos here -->
+
+      <!-- TODO: check for no events -->
+      <h2>Upcoming events</h2>
+      <table>
+        <thead>
+          <tr>
+            <th class="hideOnMobile">Title</th>
+            <th>When</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let currentEvent of data.nextEvents">
+            <td class="hideOnMobile">Redacted</td>
+            <td>{{currentEvent.start}}</td>
+            <td>{{currentEvent.duration.toFixed(1)}} hour{{ currentEvent.duration == 1 ? "" : "s" }}</td>
+          </tr>
+        </tbody>
+        <!-- <% for (let i in nextEvents) { %>
+        <% let currentEvent = nextEvents[i] %>
+          <tr>
+            <td class="hideOnMobile">Redacted</td>
+            <td>
+              <%= currentEvent["start"] %>
+            </td>
+            <td>
+              for <%= currentEvent["duration"] %> hour<%= currentEvent["duration"] == 1 ? "" : "s" %>
+            </td>
+          </tr>
+        <% } %> -->
+      </table>
+      <br />
+      <hr />
+
       <footer>
         <p>
           Fork this page <a href="https://github.com/krausefx/whereisfelix.today" target="_blank">on GitHub</a>

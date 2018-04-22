@@ -74,12 +74,9 @@ function updateNomadListData() {
           nextStays.unshift({
             name: currentStay["place"] + ", " + currentStay["country"],
             from: moment(currentStay["epoch_start"] * 1000).fromNow(),
-            fromDate: moment(currentStay["epoch_start"] * 1000).add(
-              24,
-              "hours"
-            ), // for some reason needed for the dates to be correct
+            fromDate: moment(currentStay["epoch_start"] * 1000),
             for: currentStay["length"],
-            toDate: moment(currentStay["epoch_end"] * 1000).add(24, "hours")
+            toDate: moment(currentStay["epoch_end"] * 1000)
           });
         }
       }

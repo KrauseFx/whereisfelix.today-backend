@@ -9,7 +9,7 @@ import { MyData, DataService } from './data.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'app';
 
   constructor(private dataService: DataService) {}
