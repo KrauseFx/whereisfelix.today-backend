@@ -1,0 +1,145 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  width: 100%;
+  height: 100%;
+}
+
+h1, h2, h3, h4, p {
+  color: #333;
+}
+
+#map {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+#profilePicture {
+  width: 128px;
+  height: 128px;
+  border-radius: 70px;
+  border: 5px white solid;
+  position: absolute;
+  top: 130px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+
+#content {
+  padding: 25px;
+  padding-top: 80px;
+  background-color: rgb(249, 249, 249);
+}
+#content > h1 {
+  text-align: center;
+  font-weight: normal;
+}
+b {
+  font-weight: normal;
+  background-color: rgba(255, 255, 0, 0.35);
+  padding: 5px;
+  margin-left: -5px;
+}
+#content > h3 {
+  text-align: center;
+  margin-top: -15px;
+  margin-bottom: 30px;
+  font-weight: normal;
+}
+#content > h2 {
+  text-align: center;
+  font-weight: normal;
+}
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(40, 40, 40, 0.3), rgba(0, 0, 0, 0));
+  margin-bottom: 35px;
+}
+a {
+  color: #2a7ae2 !important;
+  text-decoration: none !important;
+}
+li {
+  margin-bottom: 6px;
+}
+.footnote {
+  font-size: 14px;
+  color: #666;
+}
+#content > table {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+table tr {
+  border-bottom: 1px solid #ddd;
+}
+th {
+  font-size: 14px;
+  color: #039;
+  border-bottom: 1px solid #6678b1;
+  padding: 10px 8px;
+}
+td {
+  color: #669;
+  padding: 9px 30px 0 30px;
+}
+tr:hover td {
+  color: #009;
+}
+footer {
+  color: #777;
+  text-align: right;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  margin-top: -10px;
+}
+.recentPhotos {
+  width: 100%;
+  white-space: nowrap;
+  overflow-y: none;
+  overflow-x: scroll;
+  height: 310px;
+}
+.recentPhotos > .recentPhoto {
+  height: 300px;
+  width: 300px;
+  border: 1px solid #DDD;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+@media all and (max-width:720px) {
+  td {
+    padding: 5px 5px 0 5px;
+  }
+  #content {
+    padding: 10px;
+    padding-top: 80px;
+  }
+  .footnote {
+    display: block;
+    margin-top: 10px;
+  }
+  .hideOnMobile {
+    display: none; 
+  }
+  .recentPhotos {
+    height: 150px;
+  }
+  .recentPhotos > .recentPhoto {
+    height: 140px;
+    width: 140px;
+  }
+}

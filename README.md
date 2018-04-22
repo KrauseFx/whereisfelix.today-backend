@@ -17,5 +17,6 @@ npm run server
 For development
 
 ```
+cd frontend
 ng serve
 ```

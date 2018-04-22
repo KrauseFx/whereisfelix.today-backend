@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>WhereIsFelix.today</title>
+    <meta name="description" content="Where is Felix?">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+  </head>
+
+  <body *ngIf="data">
+    <div id="map" style="background-image: url('{{data.mapsUrl}}');"></div>
+
+    <div id="content">
+      <img src="{{data.profilePictureUrl}}" id="profilePicture" />
+      <h1>Felix is currently in <b>{{data.currentCityText}}</b></h1>
+      <h3>Leaving for {{data.nextCityText}} {{data.nextCityDate}}</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Upcoming trips</th>
+            <th>From</th>
+            <th>To</th>
+          </tr>
+        </thead>
+        <tbody>
+          <app-row-item></app-row-item>
+        </tbody>
+      </table>
+      <hr />
+      <h1 style="margin-bottom: 30px">
+        Felix feels <b>{{data.currentMoodLevel}}</b> {{data.currentMoodEmoji}}
+        <span class="footnote">({{data.currentModeRelativeTime}})</span>
+      </h1>
+
+      <hr />
+      <h2>Upcoming conferences</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Conference</th>
+            <th>City</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <hr />
+      <p style="text-align: center; margin-bottom: -12px; margin-top: -10px" class="footnote">Current time for Felix</p>
+      <h1>{{data.localTime}}</h1>
+      <hr />
+
+      <!-- TODO: insert most recent photos here -->
+      <footer>
+        <p>
+          Fork this page <a href="https://github.com/krausefx/whereisfelix.today" target="_blank">on GitHub</a>
+        </p>
+        <p>
+          Trip data comes from <a href="https://nomadlist.com/@krausefx" target="_blank">nomadlist.com</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
