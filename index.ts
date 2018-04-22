@@ -61,9 +61,17 @@ function updateNomadListData() {
       let now = parsedNomadListData["location"]["now"];
       let next = parsedNomadListData["location"]["next"];
 
-      currentCityText = now["city"] + ", " + now["country_code"];
-      currentLat = now["latitude"];
-      currentLng = now["longitude"];
+      if (now["date_start"] == moment().format("YYYY-MM-DD")) {
+        // Today I'm switching cities, let's show a "moving" status on the website
+        let previous = parsedNomadListData["location"]["previously"];
+        currentCityText = previous["city"] + " ✈️ " + now["city"];
+        currentLat = previous["latitude"];
+        currentLng = previous["longitude"];
+      } else {
+        currentCityText = now["city"] + ", " + now["country_code"];
+        currentLat = now["latitude"];
+        currentLng = now["longitude"];
+      }
 
       nextCityText = next["city"];
       nextCityDate = moment(next["date_start"]).fromNow();
@@ -218,8 +226,6 @@ function generateMapsUrl() {
     "https://maps.googleapis.com/maps/api/staticmap?center=" +
     currentCityText +
     "&zoom=10&size=1200x190&scale=2&maptype=roadmap" +
-    // "&markers=color:blue%7Clabel:Felix%7C" +
-    // currentCityText +
     "&key=" +
     googleMapsKey
   );
