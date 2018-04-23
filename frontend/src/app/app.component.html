@@ -12,7 +12,7 @@
   </body>
 
   <body *ngIf="data.currentCityText">
-    <div id="map" style="background-image: url('{{data.mapsUrl}}');"></div>
+    <div id="map" [ngStyle]="{'background-image': 'url(\'' + data.mapsUrl + '\')'}"></div>
 
     <div id="content">
       <img src="{{data.profilePictureUrl}}" id="profilePicture" />
