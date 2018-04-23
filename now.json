@@ -1,5 +1,6 @@
 {
   "name": "whereisfelix.today-backend",
+  "alias": "api.whereisfelix.today",
   "env": {
     "ICS_URL": "@where-is-felix-ics_url",
     "WORK_ICS_URL": "@where-is-felix-work_ics_url"
