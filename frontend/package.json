@@ -1,7 +1,8 @@
 {
-  "name": "whereisfelix",
-  "version": "0.0.0",
+  "name": "whereisfelix.today",
+  "version": "0.1.0",
   "license": "MIT",
+  "author": "KrauseFx",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +11,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^5.2.0",
     "@angular/common": "^5.2.0",

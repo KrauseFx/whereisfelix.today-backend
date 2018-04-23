@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/KrauseFx/whereisfelix.today/issues"
   },
-  "homepage": "https://github.com/KrauseFx/whereisfelix.today#readme",
+  "homepage": "https://whereisfelix.today",
   "dependencies": {
     "@types/needle": "^2.0.2",
     "express": "^4.16.2",
