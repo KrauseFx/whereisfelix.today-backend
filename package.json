@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prettier": "prettier index.ts --write",
-    "server": "prettier index.ts --write && tsc index.ts && node --inspect index.js"
+    "start": "prettier index.ts --write && tsc index.ts && node --inspect index.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,6 @@
   "homepage": "https://github.com/KrauseFx/whereisfelix.today#readme",
   "dependencies": {
     "@types/needle": "^2.0.2",
-    "ejs": "^2.5.7",
     "express": "^4.16.2",
     "ical": "^0.5.0",
     "moment": "^2.21.0",
