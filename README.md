@@ -9,7 +9,7 @@ npm install
 ## Server
 
 ```
-npm run start
+npm run dev
 ```
 
 ## Frontend

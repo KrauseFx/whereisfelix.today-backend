@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prettier": "prettier index.ts --write",
-    "start": "prettier index.ts --write && tsc index.ts && node --inspect index.js"
+    "dev": "prettier index.ts --write && tsc index.ts && node --inspect index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
