@@ -4,7 +4,6 @@ import { MomentModule } from 'ngx-moment';
 
 
 import { AppComponent } from './app.component';
-import { RowItemComponent } from './row-item/row-item.component';
 
 import { HttpClientModule } from '@angular/common/http'
 
@@ -13,8 +12,7 @@ import { DataService } from './data.service'
 
 @NgModule({
   declarations: [
-    AppComponent,
-    RowItemComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
