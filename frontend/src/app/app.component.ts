@@ -26,7 +26,9 @@ export class AppComponent {
     }, 3000);
   }
 
-  data: MyData;
+  data = <MyData> {
+    loading: true
+  };
 
   refreshData() {
     this.dataService.getData()
