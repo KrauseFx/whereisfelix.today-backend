@@ -43,10 +43,11 @@ let nextCityDate: String = null;
 let nextStays: Array<Stay> = [];
 let currentMoodLevel: String = null;
 let currentMoodEmoji: String = null;
-let currentModeRelativeTime: String = null;
+let currentMoodRelativeTime: String = null;
 let nextEvents: Array<any> = [];
 let nextConferences: Array<Conference> = [];
 let recentPhotos: Array<Photo> = null;
+let isMoving: Boolean;
 
 // Refresher methods
 function updateNomadListData() {
@@ -61,10 +62,18 @@ function updateNomadListData() {
       let now = parsedNomadListData["location"]["now"];
       let next = parsedNomadListData["location"]["next"];
 
-      currentCityText = now["city"] + ", " + now["country_code"];
+      if (now["date_start"] == moment().format("YYYY-MM-DD")) {
+        // Today I'm switching cities, let's show a "moving" status on the website
+        let previous = parsedNomadListData["location"]["previously"];
+        currentCityText = "✈️ " + now["city"];
+        isMoving = true;
+      } else {
+        currentCityText = now["city"] + ", " + now["country_code"];
+        isMoving = false;
+      }
+
       currentLat = now["latitude"];
       currentLng = now["longitude"];
-
       nextCityText = next["city"];
       nextCityDate = moment(next["date_start"]).fromNow();
 
@@ -74,12 +83,9 @@ function updateNomadListData() {
           nextStays.unshift({
             name: currentStay["place"] + ", " + currentStay["country"],
             from: moment(currentStay["epoch_start"] * 1000).fromNow(),
-            fromDate: moment(currentStay["epoch_start"] * 1000).add(
-              24,
-              "hours"
-            ), // for some reason needed for the dates to be correct
+            fromDate: moment(currentStay["epoch_start"] * 1000),
             for: currentStay["length"],
-            toDate: moment(currentStay["epoch_end"] * 1000).add(24, "hours")
+            toDate: moment(currentStay["epoch_end"] * 1000)
           });
         }
       }
@@ -120,7 +126,7 @@ function updateMood() {
           currentMoodEmoji = "🙃";
           break;
       }
-      currentModeRelativeTime = moment(new Date(parsedBody["time"])).fromNow();
+      currentMoodRelativeTime = moment(new Date(parsedBody["time"])).fromNow();
     }
   });
 }
@@ -221,8 +227,6 @@ function generateMapsUrl() {
     "https://maps.googleapis.com/maps/api/staticmap?center=" +
     currentCityText +
     "&zoom=10&size=1200x190&scale=2&maptype=roadmap" +
-    // "&markers=color:blue%7Clabel:Felix%7C" +
-    // currentCityText +
     "&key=" +
     googleMapsKey
   );
@@ -263,10 +267,11 @@ function getDataDic() {
     nextCityDate: nextCityDate,
     currentMoodLevel: currentMoodLevel,
     currentMoodEmoji: currentMoodEmoji,
-    currentModeRelativeTime: currentModeRelativeTime,
+    currentMoodRelativeTime: currentMoodRelativeTime,
     nextConferences: nextConferences,
     nextEvents: nextEvents,
     nextStays: nextStays,
+    isMoving: isMoving,
     mapsUrl: generateMapsUrl(),
     localTime: moment()
       .add(11, "hours")
