@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>WhereIsFelix.today</title>
+    <meta name="description" content="Where is Felix?">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+  </head>
+
+  <body *ngIf="data.loading">
+    <h1 id="findingFelix">Finding Felix...</h1>
+  </body>
+
+  <body *ngIf="data.currentCityText">
+    <div id="map" [ngStyle]="{'background-image': 'url(\'' + data.mapsUrl + '\')'}"></div>
+
+    <div id="content">
+      <img src="{{data.profilePictureUrl}}" id="profilePicture" />
+      <h1 *ngIf="!data.isMoving">Felix is currently in <b>{{data.currentCityText}}</b></h1>
+      <h1 *ngIf="data.isMoving">Felix is currently moving to <b>{{data.currentCityText}}</b></h1>
+      <h3>Leaving for {{data.nextCityText}} {{data.nextCityDate}}</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Upcoming trips</th>
+            <th>From</th>
+            <th>To</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let currentStay of data.nextStays">
+            <td>{{currentStay.name}}</td>
+            <td>{{currentStay.fromDate | amDateFormat:'DD MMM'}}</td>
+            <td>{{currentStay.toDate | amDateFormat:'DD MMM'}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h1 style="margin-bottom: 30px">
+        Felix feels <b>{{data.currentMoodLevel}}</b> {{data.currentMoodEmoji}}
+        <span class="footnote">({{data.currentMoodRelativeTime}})</span>
+      </h1>
+
+      <hr />
+      <h2>Upcoming conferences</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Conference</th>
+            <th>City</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let currentConference of data.nextConferences">
+            <td>
+              <a href="{{currentConference.link}}">{{currentConference.name}}</a>
+            </td>
+            <td>{{currentConference.location}}</td>
+            <td>{{currentConference.dates}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr />
+      <p style="text-align: center; margin-bottom: -12px; margin-top: -10px" class="footnote">Current time for Felix</p>
+      <h1>{{data.localTime}}</h1>
+      <hr />
+
+      <!-- TODO: insert most recent photos here -->
+
+      <!-- TODO: check for no events -->
+      <h2>Upcoming events</h2>
+      <table>
+        <thead>
+          <tr>
+            <th class="hideOnMobile">Title</th>
+            <th>When</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let currentEvent of data.nextEvents">
+            <td class="hideOnMobile">Redacted</td>
+            <td>{{currentEvent.start}}</td>
+            <td>{{currentEvent.duration.toFixed(1)}} hour{{ currentEvent.duration == 1 ? "" : "s" }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <br />
+      <hr />
+
+      <footer>
+        <p>
+          Fork this page <a href="https://github.com/krausefx/whereisfelix.today" target="_blank">on GitHub</a>
+        </p>
+        <p>
+          Trip data comes from <a href="https://nomadlist.com/@krausefx" target="_blank">nomadlist.com</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -20,10 +20,11 @@ var nextCityDate = null;
 var nextStays = [];
 var currentMoodLevel = null;
 var currentMoodEmoji = null;
-var currentModeRelativeTime = null;
+var currentMoodRelativeTime = null;
 var nextEvents = [];
 var nextConferences = [];
 var recentPhotos = null;
+var isMoving;
 // Refresher methods
 function updateNomadListData() {
     nextStays = [];
@@ -36,7 +37,16 @@ function updateNomadListData() {
             var parsedNomadListData = JSON.parse(body);
             var now = parsedNomadListData["location"]["now"];
             var next = parsedNomadListData["location"]["next"];
-            currentCityText = now["city"] + ", " + now["country_code"];
+            if (now["date_start"] == moment().format("YYYY-MM-DD")) {
+                // Today I'm switching cities, let's show a "moving" status on the website
+                var previous = parsedNomadListData["location"]["previously"];
+                currentCityText = "✈️ " + now["city"];
+                isMoving = true;
+            }
+            else {
+                currentCityText = now["city"] + ", " + now["country_code"];
+                isMoving = false;
+            }
             currentLat = now["latitude"];
             currentLng = now["longitude"];
             nextCityText = next["city"];
@@ -47,9 +57,9 @@ function updateNomadListData() {
                     nextStays.unshift({
                         name: currentStay["place"] + ", " + currentStay["country"],
                         from: moment(currentStay["epoch_start"] * 1000).fromNow(),
-                        fromDate: moment(currentStay["epoch_start"] * 1000).add(24, "hours"),
+                        fromDate: moment(currentStay["epoch_start"] * 1000),
                         "for": currentStay["length"],
-                        toDate: moment(currentStay["epoch_end"] * 1000).add(24, "hours")
+                        toDate: moment(currentStay["epoch_end"] * 1000)
                     });
                 }
             }
@@ -91,7 +101,7 @@ function updateMood() {
                     currentMoodEmoji = "🙃";
                     break;
             }
-            currentModeRelativeTime = moment(new Date(parsedBody["time"])).fromNow();
+            currentMoodRelativeTime = moment(new Date(parsedBody["time"])).fromNow();
         }
     });
 }
@@ -172,8 +182,6 @@ function generateMapsUrl() {
     return ("https://maps.googleapis.com/maps/api/staticmap?center=" +
         currentCityText +
         "&zoom=10&size=1200x190&scale=2&maptype=roadmap" +
-        // "&markers=color:blue%7Clabel:Felix%7C" +
-        // currentCityText +
         "&key=" +
         googleMapsKey);
 }
@@ -209,10 +217,11 @@ function getDataDic() {
         nextCityDate: nextCityDate,
         currentMoodLevel: currentMoodLevel,
         currentMoodEmoji: currentMoodEmoji,
-        currentModeRelativeTime: currentModeRelativeTime,
+        currentMoodRelativeTime: currentMoodRelativeTime,
         nextConferences: nextConferences,
         nextEvents: nextEvents,
         nextStays: nextStays,
+        isMoving: isMoving,
         mapsUrl: generateMapsUrl(),
         localTime: moment()
             .subtract(3, "hours")
