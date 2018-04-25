@@ -165,12 +165,6 @@ function updateConferences() {
     // TODO: fetch them from https://github.com/KrauseFx/speaking
     nextConferences = [
         {
-            location: "St Petersburg, Russia",
-            dates: "20 - 21 Apr",
-            name: "MobiusConf",
-            link: "https://mobiusconf.com/en/"
-        },
-        {
             location: "Vienna, Austria",
             dates: "16 - 18 May",
             name: "WeAreDevs",
