@@ -218,7 +218,8 @@ function getDataDic() {
         isMoving: isMoving,
         mapsUrl: generateMapsUrl(),
         localTime: moment()
-            .add(11, "hours")
+            .subtract(2, "hours")
+            .add(2, "hours")
             .format("hh:mm a"),
         profilePictureUrl: "https://graph.facebook.com/" + facebookId + "/picture?type=large",
         recentPhotos: recentPhotos

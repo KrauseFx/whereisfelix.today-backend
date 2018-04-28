@@ -268,7 +268,7 @@ function getDataDic() {
     isMoving: isMoving,
     mapsUrl: generateMapsUrl(),
     localTime: moment()
-      .add(11, "hours")
+      .add(2, "hours")
       .format("hh:mm a"), // TODO: actually take the current time zone
     profilePictureUrl:
       "https://graph.facebook.com/" + facebookId + "/picture?type=large",
