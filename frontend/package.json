@@ -9,7 +9,8 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "ng build --prod && cp now.json dist && cd dist && now && now alias"
   },
   "dependencies": {
     "@angular/animations": "^5.2.0",
