@@ -41,7 +41,8 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getData() {
-    return this.http.get<MyData>("http://localhost:8080/api.json").pipe(
+    // TODO: Update the URL once we have api.whereisfelix.today
+    return this.http.get<MyData>("https://whereisfelixtoday-backend.now.sh/api.json").pipe(
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
