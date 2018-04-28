@@ -4,7 +4,27 @@ var moment = require("moment");
 var ical = require("ical");
 
 var app = express();
-app.set("view engine", "ejs");
+app.use(function(req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://whereisfelixtoday-frontend.now.sh"
+  );
+  // Request methods you wish to allow
+  res.setHeader("Access-Control-Allow-Methods", "GET");
+  // Request headers you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader("Access-Control-Allow-Credentials", true);
+
+  // Pass to next layer of middleware
+  next();
+});
 
 // Metadata
 let nomadlistUser = "krausefx";
@@ -276,18 +296,18 @@ function getDataDic() {
   };
 }
 
-// Web server
-app.get("/", function(req, res) {
-  // Because we're using the free Heroku tier for now
-  // this means the server might just have started up
-  // if that's the case, we'll have to wait until all data
-  // is fetched
-  if (allDataLoaded()) {
-    res.render("pages/index", getDataDic());
-  } else {
-    res.render("pages/loading");
-  }
-});
+// // Web server
+// app.get("/", function(req, res) {
+//   // Because we're using the free Heroku tier for now
+//   // this means the server might just have started up
+//   // if that's the case, we'll have to wait until all data
+//   // is fetched
+//   if (allDataLoaded()) {
+//     res.render("pages/index", getDataDic());
+//   } else {
+//     res.render("pages/loading");
+//   }
+// });
 
 app.get("/api.json", function(req, res) {
   if (allDataLoaded()) {
