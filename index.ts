@@ -6,10 +6,7 @@ var ical = require("ical");
 var app = express();
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://whereisfelixtoday-frontend.now.sh"
-  );
+  res.setHeader("Access-Control-Allow-Origin", "https://whereisfelix.today");
   // Request methods you wish to allow
   res.setHeader("Access-Control-Allow-Methods", "GET");
   // Request headers you wish to allow
