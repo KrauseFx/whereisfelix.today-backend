@@ -20,6 +20,7 @@
   "homepage": "https://whereisfelix.today",
   "dependencies": {
     "@types/needle": "^2.0.2",
+    "cors": "^2.8.4",
     "express": "^4.16.2",
     "ical": "^0.5.0",
     "moment": "^2.21.0",
