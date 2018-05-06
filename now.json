@@ -3,6 +3,7 @@
   "alias": "whereisfelixtoday-backend.now.sh",
   "env": {
     "ICS_URL": "@where-is-felix-ics_url",
-    "WORK_ICS_URL": "@where-is-felix-work_ics_url"
+    "WORK_ICS_URL": "@where-is-felix-work_ics_url",
+    "INSTAGRAM_ACCESS_TOKEN": "@where-is-felix-instagram-access-token"
   }
 }
