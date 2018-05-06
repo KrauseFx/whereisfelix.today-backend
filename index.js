@@ -23,6 +23,8 @@ var nomadlistUser = "krausefx";
 var moodHostUrl = "https://krausefx-mood.herokuapp.com/";
 var facebookId = "100000723486971";
 var googleMapsKey = "AIzaSyDeiw5iiluUP6Txt7H584no1adlsDj-jUc";
+var githubUser = "KrauseFx";
+var githubFullName = "Felix Krause";
 // Cache
 var currentCityText = null;
 var currentLat = null;
@@ -37,6 +39,8 @@ var nextEvents = [];
 var nextConferences = [];
 var recentPhotos = null;
 var isMoving;
+var lastCommitMessage;
+var lastCommitLink;
 // Refresher methods
 function updateNomadListData() {
     nextStays = [];
@@ -114,6 +118,38 @@ function updateMood() {
                     break;
             }
             currentMoodRelativeTime = moment(new Date(parsedBody["time"])).fromNow();
+        }
+    });
+}
+function updateCommitMessage() {
+    var githubURL = "https://api.github.com/users/" + githubUser + "/events";
+    needle.get(githubURL, function (error, response, body) {
+        if (response.statusCode == 200) {
+            for (var index in body) {
+                var currentEvent = body[index];
+                if (currentEvent["type"] == "PushEvent") {
+                    console.log(currentEvent);
+                    var commits = currentEvent["payload"]["commits"].reverse();
+                    for (var commitIndex in commits) {
+                        var currentCommit = commits[commitIndex];
+                        if (!currentCommit["message"].includes("Merge") &&
+                            currentCommit["author"]["name"] == githubFullName) {
+                            var repoName = currentEvent["repo"]["name"];
+                            lastCommitMessage =
+                                '"' + currentCommit["message"] + '" on ' + repoName;
+                            // Convert the GitHub API link to a `html_url`
+                            lastCommitLink = currentCommit["url"]
+                                .replace("api.github.com", "github.com")
+                                .replace("github.com/repos", "github.com")
+                                .replace("/commits/", "/commit/");
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            console.log(error);
         }
     });
 }
@@ -202,6 +238,9 @@ function allDataLoaded() {
     if (currentMoodLevel == null) {
         return false;
     }
+    if (lastCommitMessage == null) {
+        return false;
+    }
     // if (recentPhotos == null) {
     //   return false;
     // }
@@ -211,11 +250,13 @@ setInterval(updateNomadListData, 60 * 60 * 1000);
 setInterval(updateMood, 30 * 60 * 1000);
 setInterval(fetchMostRecentPhotos, 30 * 60 * 1000);
 setInterval(updateCalendar, 15 * 60 * 1000);
+setInterval(updateCommitMessage, 20 * 60 * 1000);
 fetchMostRecentPhotos();
 updateNomadListData();
 updateMood();
 updateCalendar();
 updateConferences();
+updateCommitMessage();
 function getDataDic() {
     return {
         currentCityText: currentCityText,
@@ -228,6 +269,8 @@ function getDataDic() {
         nextEvents: nextEvents,
         nextStays: nextStays,
         isMoving: isMoving,
+        lastCommitMessage: lastCommitMessage,
+        lastCommitLink: lastCommitLink,
         mapsUrl: generateMapsUrl(),
         localTime: moment()
             .add(2, "hours")
