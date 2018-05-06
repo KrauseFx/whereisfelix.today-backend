@@ -36,6 +36,7 @@ interface Photo {
   text: String;
   url: String;
   link: String;
+  posted: Date;
 }
 
 // Cache
@@ -146,7 +147,6 @@ function updateCommitMessage() {
       for (let index in body) {
         let currentEvent = body[index];
         if (currentEvent["type"] == "PushEvent") {
-          console.log(currentEvent);
           let commits = currentEvent["payload"]["commits"].reverse();
           for (let commitIndex in commits) {
             let currentCommit = commits[commitIndex];
@@ -176,38 +176,33 @@ function updateCommitMessage() {
 }
 
 function fetchMostRecentPhotos() {
-  let facebookUrl =
-    "https://graph.facebook.com/v2.12/" +
-    process.env.FACEBOOK_USER_ID +
-    "/photos";
-  needle.request(
-    "get",
-    facebookUrl,
-    "type=uploaded&fields=name,images,link&limit=8",
-    {
-      headers: {
-        Authorization: "Bearer " + process.env.FACEBOOK_ACCESS_TOKEN
-      }
-    },
-    function(error, response, body) {
-      if (response.statusCode == 200) {
-        recentPhotos = [];
-        let mostRecentData = response["body"]["data"];
-        for (var i in mostRecentData) {
-          let currentPhoto = mostRecentData[i];
+  let instagramUrl =
+    "https://api.instagram.com/v1/users/self/media/recent?access_token=" +
+    process.env.INSTAGRAM_ACCESS_TOKEN;
+  needle.get(instagramUrl, function(error, response, body) {
+    if (response.statusCode == 200) {
+      recentPhotos = [];
+      let mostRecentData = body["data"];
+      for (var i in mostRecentData) {
+        let currentPhoto = mostRecentData[i];
 
-          recentPhotos.push({
-            text: currentPhoto["name"],
-            url: currentPhoto["images"][0]["source"],
-            link: currentPhoto["link"]
-          });
+        console.log(currentPhoto);
+        let caption: String = null;
+        if (currentPhoto["caption"] && currentPhoto["caption"]["text"]) {
+          caption = currentPhoto["caption"]["text"];
         }
-      } else {
-        console.log(error);
-        console.log(response);
+        recentPhotos.push({
+          text: caption,
+          url: currentPhoto["images"]["standard_resolution"]["url"],
+          link: currentPhoto["link"],
+          posted: new Date(parseInt(currentPhoto["created_time"]) * 1000)
+        });
       }
+    } else {
+      console.log(error);
+      console.log(response);
     }
-  );
+  });
 }
 
 function updateCalendar() {
@@ -290,6 +285,7 @@ function allDataLoaded() {
   return true;
 }
 
+// The first number is the # of minutes to wait to reload
 setInterval(updateNomadListData, 60 * 60 * 1000);
 setInterval(updateMood, 30 * 60 * 1000);
 setInterval(fetchMostRecentPhotos, 30 * 60 * 1000);

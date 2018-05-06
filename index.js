@@ -119,7 +119,6 @@ function updateCommitMessage() {
             for (var index in body) {
                 var currentEvent = body[index];
                 if (currentEvent["type"] == "PushEvent") {
-                    console.log(currentEvent);
                     var commits = currentEvent["payload"]["commits"].reverse();
                     for (var commitIndex in commits) {
                         var currentCommit = commits[commitIndex];
@@ -145,23 +144,29 @@ function updateCommitMessage() {
     });
 }
 function fetchMostRecentPhotos() {
-    var facebookUrl = "https://graph.facebook.com/v2.12/" +
-        process.env.FACEBOOK_USER_ID +
-        "/photos";
-    needle.request("get", facebookUrl, "type=uploaded&fields=name,images,link&limit=8", {
-        headers: {
-            Authorization: "Bearer " + process.env.FACEBOOK_ACCESS_TOKEN
-        }
-    }, function (error, response, body) {
+    console.log("Refresh IG");
+    var instagramUrl = "https://api.instagram.com/v1/users/self/media/recent?access_token=" +
+        process.env.INSTAGRAM_ACCESS_TOKEN;
+    needle.get(instagramUrl, function (error, response, body) {
+        console.log("---");
+        console.log(body);
+        console.log(error);
+        console.log("---");
         if (response.statusCode == 200) {
             recentPhotos = [];
-            var mostRecentData = response["body"]["data"];
+            var mostRecentData = body["data"];
             for (var i in mostRecentData) {
                 var currentPhoto = mostRecentData[i];
+                console.log(currentPhoto);
+                var caption = null;
+                if (currentPhoto["caption"] && currentPhoto["caption"]["text"]) {
+                    caption = currentPhoto["caption"]["text"];
+                }
                 recentPhotos.push({
-                    text: currentPhoto["name"],
-                    url: currentPhoto["images"][0]["source"],
-                    link: currentPhoto["link"]
+                    text: caption,
+                    url: currentPhoto["images"]["standard_resolution"]["url"],
+                    link: currentPhoto["link"],
+                    posted: new Date(parseInt(currentPhoto["created_time"]) * 1000)
                 });
             }
         }
