@@ -53,6 +53,7 @@ let nextConferences: Array<Conference> = [];
 let recentPhotos: Array<Photo> = null;
 let isMoving: Boolean;
 let lastCommitMessage: String;
+let lastCommitRepo: String;
 let lastCommitLink: String;
 let lastCommitTimestamp: Date;
 
@@ -153,9 +154,8 @@ function updateCommitMessage() {
               !currentCommit["message"].includes("Merge") &&
               currentCommit["author"]["name"] == githubFullName
             ) {
-              let repoName = currentEvent["repo"]["name"];
-              lastCommitMessage =
-                '"' + currentCommit["message"] + '" on ' + repoName;
+              lastCommitMessage = currentCommit["message"];
+              lastCommitRepo = currentEvent["repo"]["name"];
 
               // Convert the GitHub API link to a `html_url`
               lastCommitLink = currentCommit["url"]
@@ -316,6 +316,7 @@ function getDataDic() {
     nextStays: nextStays,
     isMoving: isMoving,
     lastCommitMessage: lastCommitMessage,
+    lastCommitRepo: lastCommitRepo,
     lastCommitLink: lastCommitLink,
     lastCommitTimestamp: lastCommitTimestamp,
     mapsUrl: generateMapsUrl(),

@@ -29,6 +29,7 @@ var nextConferences = [];
 var recentPhotos = null;
 var isMoving;
 var lastCommitMessage;
+var lastCommitRepo;
 var lastCommitLink;
 var lastCommitTimestamp;
 // Refresher methods
@@ -124,9 +125,8 @@ function updateCommitMessage() {
                         var currentCommit = commits[commitIndex];
                         if (!currentCommit["message"].includes("Merge") &&
                             currentCommit["author"]["name"] == githubFullName) {
-                            var repoName = currentEvent["repo"]["name"];
-                            lastCommitMessage =
-                                '"' + currentCommit["message"] + '" on ' + repoName;
+                            lastCommitMessage = currentCommit["message"];
+                            lastCommitRepo = currentEvent["repo"]["name"];
                             // Convert the GitHub API link to a `html_url`
                             lastCommitLink = currentCommit["url"]
                                 .replace("api.github.com", "github.com")
@@ -261,6 +261,7 @@ function getDataDic() {
         nextStays: nextStays,
         isMoving: isMoving,
         lastCommitMessage: lastCommitMessage,
+        lastCommitRepo: lastCommitRepo,
         lastCommitLink: lastCommitLink,
         lastCommitTimestamp: lastCommitTimestamp,
         mapsUrl: generateMapsUrl(),
