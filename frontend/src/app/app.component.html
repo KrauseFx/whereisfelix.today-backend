@@ -46,6 +46,19 @@
       <h1>{{data.localTime}}</h1>
       <hr />
 
+      <h2>Recent photos</h2>
+      <div class="recentPhotos">
+        <span 
+          class="recentPhoto"
+          *ngFor="let currentPhoto of data.recentPhotos"
+          [ngStyle]="{'background-image': 'url(\'' + currentPhoto.url + '\')'}"
+          onclick="window.open('https://instagram.com/KrauseFx', '_blank');"
+        >
+          
+        </span>
+      </div>
+      <hr />
+
       <p style="text-align: center; margin-bottom: -6px; margin-top: -10px" class="footnote">Last code commit {{data.lastCommitTimestamp | amTimeAgo}}</p>
       <h1 style="font-size: 25px; margin-bottom: 25px">
         <a href="{{data.lastCommitLink}}" target="_blank" style="color: #333 !important; text-decoration: underline !important">

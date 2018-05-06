@@ -19,6 +19,13 @@ export interface Conference {
   name: String;
 }
 
+export interface Photo {
+  text: String;
+  url: String;
+  link: String;
+  posted: Date;
+}
+
 export interface MyData {
   loading: boolean;
   currentCityText: string;
@@ -37,6 +44,7 @@ export interface MyData {
   // Arrays
   nextStays: Stay[];
   nextConferences: Conference[];
+  recentPhotos: Photo[];
 }
 
 @Injectable()
