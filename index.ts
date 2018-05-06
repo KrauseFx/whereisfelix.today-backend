@@ -294,7 +294,7 @@ setInterval(updateNomadListData, 60 * 60 * 1000);
 setInterval(updateMood, 30 * 60 * 1000);
 setInterval(fetchMostRecentPhotos, 30 * 60 * 1000);
 setInterval(updateCalendar, 15 * 60 * 1000);
-setInterval(updateCommitMessage, 20 * 60 * 1000);
+setInterval(updateCommitMessage, 5 * 60 * 1000);
 
 fetchMostRecentPhotos();
 updateNomadListData();
