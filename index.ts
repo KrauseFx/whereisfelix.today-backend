@@ -69,6 +69,7 @@ let recentPhotos: Array<Photo> = null;
 let isMoving: Boolean;
 let lastCommitMessage: String;
 let lastCommitLink: String;
+let lastCommitTimestamp: Date;
 
 // Refresher methods
 function updateNomadListData() {
@@ -176,6 +177,8 @@ function updateCommitMessage() {
                 .replace("api.github.com", "github.com")
                 .replace("github.com/repos", "github.com")
                 .replace("/commits/", "/commit/");
+
+              lastCommitTimestamp = new Date(currentEvent["created_at"]);
               return;
             }
           }
@@ -329,6 +332,7 @@ function getDataDic() {
     isMoving: isMoving,
     lastCommitMessage: lastCommitMessage,
     lastCommitLink: lastCommitLink,
+    lastCommitTimestamp: lastCommitTimestamp,
     mapsUrl: generateMapsUrl(),
     localTime: moment()
       .add(2, "hours")

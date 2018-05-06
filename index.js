@@ -41,6 +41,7 @@ var recentPhotos = null;
 var isMoving;
 var lastCommitMessage;
 var lastCommitLink;
+var lastCommitTimestamp;
 // Refresher methods
 function updateNomadListData() {
     nextStays = [];
@@ -142,6 +143,7 @@ function updateCommitMessage() {
                                 .replace("api.github.com", "github.com")
                                 .replace("github.com/repos", "github.com")
                                 .replace("/commits/", "/commit/");
+                            lastCommitTimestamp = new Date(currentEvent["created_at"]);
                             return;
                         }
                     }
@@ -271,6 +273,7 @@ function getDataDic() {
         isMoving: isMoving,
         lastCommitMessage: lastCommitMessage,
         lastCommitLink: lastCommitLink,
+        lastCommitTimestamp: lastCommitTimestamp,
         mapsUrl: generateMapsUrl(),
         localTime: moment()
             .add(2, "hours")
