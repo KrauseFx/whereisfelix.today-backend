@@ -134,17 +134,24 @@ footer {
 .foodContainer {
   text-align: center;
   width: 100%;
-  margin-bottom: 20px;
+  line-height: 40px;
 }
 
 .foodContainer > span {
   margin: 0 30px;
+  white-space:nowrap;
 }
 
 @media all and (max-width:720px) {
+  /* Mobile Device */
   td {
     padding: 5px 5px 0 5px;
   }
+
+  .foodContainer > span {
+    margin: 0 10px;
+  }
+
   #content {
     padding: 10px;
     padding-top: 80px;
