@@ -6,6 +6,7 @@ var moment = require("moment");
 var ical = require("ical");
 var app = express();
 var cors = require("cors");
+var mfp = require("mfp"); // MyFitnessPal
 app.use(cors());
 // Metadata
 var nomadlistUser = "krausefx";
@@ -14,6 +15,7 @@ var facebookId = "100000723486971";
 var googleMapsKey = "AIzaSyDeiw5iiluUP6Txt7H584no1adlsDj-jUc";
 var githubUser = "KrauseFx";
 var githubFullName = "Felix Krause";
+var myFitnessPalUser = "krausefx1";
 // Cache
 var currentCityText = null;
 var currentLat = null;
@@ -32,6 +34,7 @@ var lastCommitMessage;
 var lastCommitRepo;
 var lastCommitLink;
 var lastCommitTimestamp;
+var todaysFood;
 // Refresher methods
 function updateNomadListData() {
     nextStays = [];
@@ -144,14 +147,9 @@ function updateCommitMessage() {
     });
 }
 function fetchMostRecentPhotos() {
-    console.log("Refresh IG");
     var instagramUrl = "https://api.instagram.com/v1/users/self/media/recent?access_token=" +
         process.env.INSTAGRAM_ACCESS_TOKEN;
     needle.get(instagramUrl, function (error, response, body) {
-        console.log("---");
-        console.log(body);
-        console.log(error);
-        console.log("---");
         if (response.statusCode == 200) {
             recentPhotos = [];
             var mostRecentData = body["data"];
@@ -173,6 +171,30 @@ function fetchMostRecentPhotos() {
         else {
             console.log(error);
             console.log(response);
+        }
+    });
+}
+function updateFoodData() {
+    mfp.fetchSingleDate(myFitnessPalUser, moment().format("YYYY-MM-DD"), ["calories", "protein", "carbs", "fat"], function (data) {
+        todaysFood = {
+            kcal: data["calories"],
+            carbs: data["carbs"],
+            protein: data["protein"],
+            fat: data["fat"]
+        };
+        // TODO: use promises and reduce duplicate code
+        if (todaysFood.kcal == undefined || todaysFood.kcal == 0) {
+            // time zones and stuff, going back to yesterday
+            mfp.fetchSingleDate(myFitnessPalUser, moment()
+                .subtract(1, "day")
+                .format("YYYY-MM-DD"), ["calories", "protein", "carbs", "fat"], function (data) {
+                todaysFood = {
+                    kcal: data["calories"],
+                    carbs: data["carbs"],
+                    protein: data["protein"],
+                    fat: data["fat"]
+                };
+            });
         }
     });
 }
@@ -242,17 +264,20 @@ function allDataLoaded() {
     // }
     return true;
 }
+// The first number is the # of minutes to wait to reload
 setInterval(updateNomadListData, 60 * 60 * 1000);
 setInterval(updateMood, 30 * 60 * 1000);
 setInterval(fetchMostRecentPhotos, 30 * 60 * 1000);
 setInterval(updateCalendar, 15 * 60 * 1000);
 setInterval(updateCommitMessage, 5 * 60 * 1000);
+setInterval(updateFoodData, 15 * 60 * 1000);
 fetchMostRecentPhotos();
 updateNomadListData();
 updateMood();
 updateCalendar();
 updateConferences();
 updateCommitMessage();
+updateFoodData();
 function getDataDic() {
     return {
         currentCityText: currentCityText,
@@ -269,6 +294,7 @@ function getDataDic() {
         lastCommitRepo: lastCommitRepo,
         lastCommitLink: lastCommitLink,
         lastCommitTimestamp: lastCommitTimestamp,
+        todaysFood: todaysFood,
         mapsUrl: generateMapsUrl(),
         localTime: moment()
             .add(2, "hours")

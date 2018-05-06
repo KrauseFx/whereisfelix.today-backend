@@ -5,6 +5,7 @@ var ical = require("ical");
 
 var app = express();
 var cors = require("cors");
+var mfp = require("mfp"); // MyFitnessPal
 
 app.use(cors());
 
@@ -15,6 +16,7 @@ let facebookId = "100000723486971";
 let googleMapsKey = "AIzaSyDeiw5iiluUP6Txt7H584no1adlsDj-jUc";
 let githubUser = "KrauseFx";
 let githubFullName = "Felix Krause";
+let myFitnessPalUser = "krausefx1";
 
 // Interfaces
 interface Conference {
@@ -39,6 +41,13 @@ interface Photo {
   posted: Date;
 }
 
+interface Food {
+  kcal: Number;
+  carbs: Number;
+  protein: Number;
+  fat: Number;
+}
+
 // Cache
 let currentCityText: String = null;
 let currentLat: Number = null;
@@ -57,6 +66,7 @@ let lastCommitMessage: String;
 let lastCommitRepo: String;
 let lastCommitLink: String;
 let lastCommitTimestamp: Date;
+let todaysFood: Food;
 
 // Refresher methods
 function updateNomadListData() {
@@ -205,6 +215,42 @@ function fetchMostRecentPhotos() {
   });
 }
 
+function updateFoodData() {
+  mfp.fetchSingleDate(
+    myFitnessPalUser,
+    moment().format("YYYY-MM-DD"),
+    ["calories", "protein", "carbs", "fat"],
+    function(data) {
+      todaysFood = {
+        kcal: data["calories"],
+        carbs: data["carbs"],
+        protein: data["protein"],
+        fat: data["fat"]
+      };
+      // TODO: use promises and reduce duplicate code
+
+      if (todaysFood.kcal == undefined || todaysFood.kcal == 0) {
+        // time zones and stuff, going back to yesterday
+        mfp.fetchSingleDate(
+          myFitnessPalUser,
+          moment()
+            .subtract(1, "day")
+            .format("YYYY-MM-DD"),
+          ["calories", "protein", "carbs", "fat"],
+          function(data) {
+            todaysFood = {
+              kcal: data["calories"],
+              carbs: data["carbs"],
+              protein: data["protein"],
+              fat: data["fat"]
+            };
+          }
+        );
+      }
+    }
+  );
+}
+
 function updateCalendar() {
   nextEvents = [];
   let icsUrls = [process.env.ICS_URL, process.env.WORK_ICS_URL];
@@ -291,6 +337,7 @@ setInterval(updateMood, 30 * 60 * 1000);
 setInterval(fetchMostRecentPhotos, 30 * 60 * 1000);
 setInterval(updateCalendar, 15 * 60 * 1000);
 setInterval(updateCommitMessage, 5 * 60 * 1000);
+setInterval(updateFoodData, 15 * 60 * 1000);
 
 fetchMostRecentPhotos();
 updateNomadListData();
@@ -298,6 +345,7 @@ updateMood();
 updateCalendar();
 updateConferences();
 updateCommitMessage();
+updateFoodData();
 
 function getDataDic() {
   return {
@@ -315,6 +363,7 @@ function getDataDic() {
     lastCommitRepo: lastCommitRepo,
     lastCommitLink: lastCommitLink,
     lastCommitTimestamp: lastCommitTimestamp,
+    todaysFood: todaysFood,
     mapsUrl: generateMapsUrl(),
     localTime: moment()
       .add(2, "hours")

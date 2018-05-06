@@ -24,6 +24,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "ical": "^0.5.0",
+    "mfp": "git+https://git@github.com/KrauseFx/mfp.git",
     "moment": "^2.22.1",
     "needle": "^2.2.1",
     "prettier": "^1.12.1",
