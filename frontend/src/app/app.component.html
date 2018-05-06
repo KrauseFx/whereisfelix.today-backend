@@ -42,6 +42,19 @@
       </h1>
 
       <hr />
+      <p style="text-align: center; margin-bottom: -12px; margin-top: -10px" class="footnote">Current time for Felix</p>
+      <h1>{{data.localTime}}</h1>
+      <hr />
+
+      <p style="text-align: center; margin-bottom: -6px; margin-top: -10px" class="footnote">Last code commit {{data.lastCommitTimestamp | amTimeAgo}}</p>
+      <h1 style="font-size: 25px; margin-bottom: 25px">
+        <a href="{{data.lastCommitLink}}" target="_blank" style="color: #333 !important; text-decoration: underline !important">
+          {{data.lastCommitMessage}}
+        </a>
+      </h1>
+      <p style="text-align: center; margin-bottom: 25px; margin-top: -10px;" class="footnote">on GitHub repo <a href="https://github.com/{{data.lastCommitRepo}}" target="_blank">{{data.lastCommitRepo}}</a></p>
+      <hr />
+
       <h2>Upcoming conferences</h2>
       <table>
         <thead>
@@ -62,9 +75,6 @@
         </tbody>
       </table>
 
-      <hr />
-      <p style="text-align: center; margin-bottom: -12px; margin-top: -10px" class="footnote">Current time for Felix</p>
-      <h1>{{data.localTime}}</h1>
       <hr />
 
       <!-- TODO: insert most recent photos here -->

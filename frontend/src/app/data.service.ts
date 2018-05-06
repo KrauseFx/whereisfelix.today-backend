@@ -30,6 +30,9 @@ export interface MyData {
   localTime: string;
   mapsUrl: string;
   profilePictureUrl: string;
+  lastCommitMessage: String;
+  lastCommitLink: String;
+  lastCommitTimestamp: Date;
 
   // Arrays
   nextStays: Stay[];
