@@ -26,6 +26,13 @@ export interface Photo {
   posted: Date;
 }
 
+export interface Food {
+  kcal: Number;
+  carbs: Number;
+  protein: Number;
+  fat: Number;
+}
+
 export interface MyData {
   loading: boolean;
   currentCityText: string;
@@ -40,6 +47,7 @@ export interface MyData {
   lastCommitMessage: String;
   lastCommitLink: String;
   lastCommitTimestamp: Date;
+  todaysFood: Food;
 
   // Arrays
   nextStays: Stay[];

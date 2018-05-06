@@ -42,8 +42,27 @@
       </h1>
 
       <hr />
+
       <p style="text-align: center; margin-bottom: -12px; margin-top: -10px" class="footnote">Current time for Felix</p>
       <h1>{{data.localTime}}</h1>
+      <hr />
+
+      <h1>Felix ate today</h1>
+      <div class="foodContainer">
+        <span>
+          <b>{{data.todaysFood.kcal}} kcal</b> / 2510 kcal
+        </span>
+        <span>
+          <b>{{data.todaysFood.carbs}}g carbs</b> / 251g
+        </span>
+        <span>
+          <b>{{data.todaysFood.protein}}g protein</b> / 220g
+        </span>
+        <span>
+          <b>{{data.todaysFood.fat}}g fat</b> / 70g
+        </span>
+      </div>
+
       <hr />
 
       <h2>Recent photos</h2>

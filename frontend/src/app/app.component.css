@@ -130,6 +130,17 @@ footer {
   display: inline-block;
   cursor: pointer;
 }
+
+.foodContainer {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.foodContainer > span {
+  margin: 0 30px;
+}
+
 @media all and (max-width:720px) {
   td {
     padding: 5px 5px 0 5px;
