@@ -47,21 +47,25 @@
       <h1>{{data.localTime}}</h1>
       <hr />
 
-      <h1>Felix ate today</h1>
+      <h1 style="margin-bottom: 10px">Felix ate today</h1>
       <div class="foodContainer">
         <span>
-          <b>{{data.todaysFood.kcal}} kcal</b> / 2510 kcal
+          <b>{{data.todaysFood.kcal}} kcal</b>of 2510 kcal
         </span>
         <span>
-          <b>{{data.todaysFood.carbs}}g carbs</b> / 251g
+          <b>{{data.todaysFood.carbs}}g carbs</b>of 251g
         </span>
         <span>
-          <b>{{data.todaysFood.protein}}g protein</b> / 220g
+          <b>{{data.todaysFood.protein}}g protein</b>of 220g
         </span>
         <span>
-          <b>{{data.todaysFood.fat}}g fat</b> / 70g
+          <b>{{data.todaysFood.fat}}g fat</b>of 70g
         </span>
       </div>
+
+      <hr />
+      <h1>Today's weight</h1>
+      <h3 style="margin-top: 20px"><b>80.4 kg</b> (177.3 lbs)</h3>
 
       <hr />
 
@@ -108,8 +112,6 @@
       </table>
 
       <hr />
-
-      <!-- TODO: insert most recent photos here -->
 
       <!-- TODO: check for no events -->
       <h2>Upcoming events</h2>
