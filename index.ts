@@ -293,10 +293,16 @@ function updateConferences() {
   // TODO: fetch them from https://github.com/KrauseFx/speaking
   nextConferences = [
     {
-      location: "Vienna, Austria",
-      dates: "16 - 18 May",
-      name: "WeAreDevs",
-      link: "https://www.wearedevelopers.com/congress/"
+      location: "To be announced",
+      dates: "27 October",
+      name: "To be announced",
+      link: "#"
+    },
+    {
+      location: "Oslo, Norway",
+      dates: "01 - 02 Nov",
+      name: "To be announced",
+      link: "#"
     }
   ];
 }
@@ -366,7 +372,7 @@ function getDataDic() {
     todaysFood: todaysFood,
     mapsUrl: generateMapsUrl(),
     localTime: moment()
-      .add(2, "hours")
+      .subtract(4, "hours")
       .format("hh:mm a"), // TODO: actually take the current time zone
     profilePictureUrl:
       "https://graph.facebook.com/" + facebookId + "/picture?type=large",

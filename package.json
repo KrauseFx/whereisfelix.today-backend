@@ -7,7 +7,7 @@
     "prettier": "prettier index.ts --write",
     "dev": "prettier index.ts --write && tsc index.ts && node --inspect index.js",
     "start": "NODE_ENV=production node index.js",
-    "deploy": "now && now alias"
+    "deploy": "prettier index.ts --write && tsc index.ts && now && now alias"
   },
   "repository": {
     "type": "git",
