@@ -47,21 +47,23 @@
       <h1>{{data.localTime}}</h1>
       <hr />
 
-      <h1 style="margin-bottom: 10px">Felix ate today</h1>
-      <div class="foodContainer">
-        <span>
-          <b>{{data.todaysFood.kcal}} kcal</b>of 2262 kcal
-        </span>
-        <span>
-          <b>{{data.todaysFood.carbs}}g carbs</b>of 150g
-        </span>
-        <span>
-          <b>{{data.todaysFood.protein}}g protein</b>of 258g
-        </span>
-        <span>
-          <b>{{data.todaysFood.fat}}g fat</b>of 70g
-        </span>
-      </div>
+      <span *ngIf="data.todaysFood.kcal > 0">
+        <h1 style="margin-bottom: 10px">Felix ate today</h1>
+        <div class="foodContainer">
+          <span>
+            <b>{{data.todaysFood.kcal}} kcal</b>of 2262 kcal
+          </span>
+          <span>
+            <b>{{data.todaysFood.carbs}}g carbs</b>of 150g
+          </span>
+          <span>
+            <b>{{data.todaysFood.protein}}g protein</b>of 258g
+          </span>
+          <span>
+            <b>{{data.todaysFood.fat}}g fat</b>of 70g
+          </span>
+        </div>
+      </span>
 
       <hr />
       <h1>Today's weight</h1>
