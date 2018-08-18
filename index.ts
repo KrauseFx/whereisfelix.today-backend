@@ -294,13 +294,19 @@ function updateConferences() {
   nextConferences = [
     {
       location: "To be announced",
-      dates: "27 October",
+      dates: "October",
       name: "To be announced",
       link: "#"
     },
     {
       location: "Oslo, Norway",
       dates: "01 - 02 Nov",
+      name: "Mobile Era",
+      link: "https://mobileera.rocks/"
+    },
+    {
+      location: "To be announced",
+      dates: "November",
       name: "To be announced",
       link: "#"
     }
