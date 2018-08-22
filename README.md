@@ -8,8 +8,14 @@ npm install
 
 ## Server
 
+Run dev server
 ```
 npm run dev
+```
+
+Push to production
+```
+npm run deploy
 ```
 
 ## Frontend
@@ -19,6 +25,12 @@ For development
 ```
 cd frontend
 ng serve
+```
+
+Push to production
+```
+cd frontend
+npm run deploy
 ```
 
 ## Instagram
