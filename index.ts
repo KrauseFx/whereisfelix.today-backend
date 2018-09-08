@@ -293,16 +293,10 @@ function updateConferences() {
   // TODO: fetch them from https://github.com/KrauseFx/speaking
   nextConferences = [
     {
-      location: "New York, USA",
-      dates: "5th September",
-      name: "try! Swift",
-      link: "https://www.tryswift.co/events/2018/nyc/"
-    },
-    {
-      location: "To be announced",
+      location: "Belgrade, Serbia",
       dates: "October",
-      name: "To be announced",
-      link: "#"
+      name: "heapcon",
+      link: "https://heapcon.io/"
     },
     {
       location: "Oslo, Norway",
