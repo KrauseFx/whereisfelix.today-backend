@@ -294,7 +294,7 @@ function updateConferences() {
   nextConferences = [
     {
       location: "Belgrade, Serbia",
-      dates: "October",
+      dates: "19th Oct",
       name: "heapcon",
       link: "https://heapcon.io/"
     },
