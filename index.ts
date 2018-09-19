@@ -328,18 +328,11 @@ function allDataLoaded() {
     return false;
   }
   if (nextStays.length == 0) {
-    // nextEvents.length == 0 // doesn't work if a got nothing on my calendar
-    return false;
-  }
-  if (currentMoodLevel == null) {
     return false;
   }
   if (lastCommitMessage == null) {
     return false;
   }
-  // if (recentPhotos == null) {
-  //   return false;
-  // }
   return true;
 }
 
