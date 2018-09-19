@@ -155,7 +155,6 @@ function fetchMostRecentPhotos() {
             var mostRecentData = body["data"];
             for (var i in mostRecentData) {
                 var currentPhoto = mostRecentData[i];
-                console.log(currentPhoto);
                 var caption = null;
                 if (currentPhoto["caption"] && currentPhoto["caption"]["text"]) {
                     caption = currentPhoto["caption"]["text"];
