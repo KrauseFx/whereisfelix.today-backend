@@ -36,12 +36,14 @@
         </tbody>
       </table>
       <hr />
-      <h1 style="margin-bottom: 30px">
-        Felix feels <b>{{data.currentMoodLevel}}</b> {{data.currentMoodEmoji}}
-        <span class="footnote">({{data.currentMoodRelativeTime}})</span>
-      </h1>
+      <span *ngIf="data.currentMoodLevel">
+        <h1 style="margin-bottom: 30px">
+          Felix feels <b>{{data.currentMoodLevel}}</b> {{data.currentMoodEmoji}}
+          <span class="footnote">({{data.currentMoodRelativeTime}})</span>
+        </h1>
 
-      <hr />
+        <hr />
+      </span>
 
       <p style="text-align: center; margin-bottom: -12px; margin-top: -10px" class="footnote">Current time for Felix</p>
       <h1>{{data.localTime}}</h1>
