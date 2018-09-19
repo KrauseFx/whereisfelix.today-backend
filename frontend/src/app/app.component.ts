@@ -11,7 +11,6 @@ import { MyData, DataService } from './data.service';
 
 export class AppComponent {
   title = 'app';
-  refresherInterval = null;
 
   constructor(private dataService: DataService) {}
 
@@ -21,7 +20,11 @@ export class AppComponent {
     // Poor person's reload for now, until we have proper
     // web streams and stuff
     let self = this;
-    this.refresherInterval = setInterval(function() {
+
+    // We always want to refresh
+    // as some stuff takes longer to load sometimes
+    // e.g. the mood, so we just wait
+    setInterval(function() {
       self.refreshData();
     }, 3000);
   }
@@ -34,12 +37,6 @@ export class AppComponent {
     this.dataService.getData()
       .subscribe(data => {
         this.data = { ...data };
-        console.log(this.data)
-
-        if (this.data.loading != true) {
-          // We got data, let's stop refreshing now
-          clearInterval(this.refresherInterval);
-        }
       },
       error => {
         console.log("Something went wrong...")
