@@ -87,7 +87,8 @@ function updateNomadListData() {
         currentCityText = "✈️ " + now["city"];
         isMoving = true;
       } else {
-        currentCityText = now["city"] + ", " + now["country_code"];
+        currentCityText =
+          now["city"] + ", " + now["country_code"].toUpperCase();
         isMoving = false;
       }
 

@@ -54,7 +54,8 @@ function updateNomadListData() {
                 isMoving = true;
             }
             else {
-                currentCityText = now["city"] + ", " + now["country_code"];
+                currentCityText =
+                    now["city"] + ", " + now["country_code"].toUpperCase();
                 isMoving = false;
             }
             currentLat = now["latitude"];
