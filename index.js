@@ -243,10 +243,10 @@ function updateConferences() {
             link: "https://mobileera.rocks/"
         },
         {
-            location: "To be announced",
-            dates: "November",
-            name: "To be announced",
-            link: "#"
+            location: "Tel Aviv, Israel",
+            dates: "14th November",
+            name: "Mobile @Scale Tel Aviv",
+            link: "https://atscaleconference.com/events/mobilescale-tel-aviv/"
         }
     ];
 }
