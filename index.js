@@ -302,7 +302,7 @@ function getDataDic() {
         todaysFood: todaysFood,
         mapsUrl: generateMapsUrl(),
         localTime: moment()
-            .subtract(4, "hours") // 4 = NYC, 7 = SF
+            .subtract(-2, "hours") // -2 = VIE, 4 = NYC, 7 = SF
             .format("hh:mm a"),
         profilePictureUrl: "https://graph.facebook.com/" + facebookId + "/picture?type=large",
         recentPhotos: recentPhotos
