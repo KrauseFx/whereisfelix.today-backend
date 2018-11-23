@@ -371,7 +371,7 @@ function getDataDic() {
     todaysFood: todaysFood,
     mapsUrl: generateMapsUrl(),
     localTime: moment()
-      .subtract(-2, "hours") // -2 = VIE, 4 = NYC, 7 = SF
+      .subtract(2, "hours") // -1 = VIE, 3 = NYC, 6 = SF
       .format("hh:mm a"), // TODO: actually take the current time zone - nomadlist doens't seem to expose the time zone
     profilePictureUrl:
       "https://graph.facebook.com/" + facebookId + "/picture?type=large",
