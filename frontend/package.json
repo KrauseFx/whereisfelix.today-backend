@@ -26,7 +26,7 @@
     "core-js": "^2.5.7",
     "moment": "^2.22.2",
     "ngx-moment": "^2.0.0-rc.0",
-    "rxjs": "^5.5.12",
+    "rxjs": "^6.0.0",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
