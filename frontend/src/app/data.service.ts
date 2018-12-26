@@ -47,7 +47,7 @@ export interface MyData {
   lastCommitMessage: String;
   lastCommitLink: String;
   lastCommitTimestamp: Date;
-  todaysFood: Food;
+  todaysMacros: Food;
 
   // Arrays
   nextStays: Stay[];

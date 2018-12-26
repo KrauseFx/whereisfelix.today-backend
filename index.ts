@@ -48,6 +48,11 @@ interface Food {
   fat: Number;
 }
 
+interface FoodItem {
+  name: String;
+  amount: String; // lol MyFitnessPal, thx
+}
+
 // Cache
 let currentCityText: String = null;
 let currentLat: Number = null;
@@ -66,7 +71,8 @@ let lastCommitMessage: String;
 let lastCommitRepo: String;
 let lastCommitLink: String;
 let lastCommitTimestamp: Date;
-let todaysFood: Food;
+let todaysMacros: Food;
+let todaysFoodItems: Array<FoodItem> = [];
 
 // Refresher methods
 function updateNomadListData() {
@@ -219,17 +225,25 @@ function updateFoodData() {
   mfp.fetchSingleDate(
     myFitnessPalUser,
     moment().format("YYYY-MM-DD"),
-    ["calories", "protein", "carbs", "fat"],
+    ["calories", "protein", "carbs", "fat", "entries"],
     function(data) {
-      todaysFood = {
+      todaysMacros = {
         kcal: data["calories"],
         carbs: data["carbs"],
         protein: data["protein"],
         fat: data["fat"]
       };
+
+      for (let rawFoodItemIndex in data["entries"]) {
+        let rawFoodItem = data["entries"][rawFoodItemIndex];
+        todaysFoodItems.push({
+          name: rawFoodItem["name"],
+          amount: rawFoodItem["amount"]
+        });
+      }
       // TODO: use promises and reduce duplicate code
 
-      if (todaysFood.kcal == undefined || todaysFood.kcal == 0) {
+      if (todaysMacros.kcal == undefined || todaysMacros.kcal == 0) {
         // time zones and stuff, going back to yesterday
         mfp.fetchSingleDate(
           myFitnessPalUser,
@@ -238,7 +252,7 @@ function updateFoodData() {
             .format("YYYY-MM-DD"),
           ["calories", "protein", "carbs", "fat"],
           function(data) {
-            todaysFood = {
+            todaysMacros = {
               kcal: data["calories"],
               carbs: data["carbs"],
               protein: data["protein"],
@@ -368,7 +382,8 @@ function getDataDic() {
     lastCommitRepo: lastCommitRepo,
     lastCommitLink: lastCommitLink,
     lastCommitTimestamp: lastCommitTimestamp,
-    todaysFood: todaysFood,
+    todaysMacros: todaysMacros,
+    todaysFoodItems: todaysFoodItems,
     mapsUrl: generateMapsUrl(),
     localTime: moment()
       .subtract(-1, "hours") // -1 = VIE, 5 = NYC, 8 = SF

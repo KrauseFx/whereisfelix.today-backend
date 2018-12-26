@@ -34,7 +34,8 @@ var lastCommitMessage;
 var lastCommitRepo;
 var lastCommitLink;
 var lastCommitTimestamp;
-var todaysFood;
+var todaysMacros;
+var todaysFoodItems = [];
 // Refresher methods
 function updateNomadListData() {
     nextStays = [];
@@ -175,20 +176,27 @@ function fetchMostRecentPhotos() {
     });
 }
 function updateFoodData() {
-    mfp.fetchSingleDate(myFitnessPalUser, moment().format("YYYY-MM-DD"), ["calories", "protein", "carbs", "fat"], function (data) {
-        todaysFood = {
+    mfp.fetchSingleDate(myFitnessPalUser, moment().format("YYYY-MM-DD"), ["calories", "protein", "carbs", "fat", "entries"], function (data) {
+        todaysMacros = {
             kcal: data["calories"],
             carbs: data["carbs"],
             protein: data["protein"],
             fat: data["fat"]
         };
+        for (var rawFoodItemIndex in data["entries"]) {
+            var rawFoodItem = data["entries"][rawFoodItemIndex];
+            todaysFoodItems.push({
+                name: rawFoodItem["name"],
+                amount: rawFoodItem["amount"]
+            });
+        }
         // TODO: use promises and reduce duplicate code
-        if (todaysFood.kcal == undefined || todaysFood.kcal == 0) {
+        if (todaysMacros.kcal == undefined || todaysMacros.kcal == 0) {
             // time zones and stuff, going back to yesterday
             mfp.fetchSingleDate(myFitnessPalUser, moment()
                 .subtract(1, "day")
                 .format("YYYY-MM-DD"), ["calories", "protein", "carbs", "fat"], function (data) {
-                todaysFood = {
+                todaysMacros = {
                     kcal: data["calories"],
                     carbs: data["carbs"],
                     protein: data["protein"],
@@ -299,7 +307,8 @@ function getDataDic() {
         lastCommitRepo: lastCommitRepo,
         lastCommitLink: lastCommitLink,
         lastCommitTimestamp: lastCommitTimestamp,
-        todaysFood: todaysFood,
+        todaysMacros: todaysMacros,
+        todaysFoodItems: todaysFoodItems,
         mapsUrl: generateMapsUrl(),
         localTime: moment()
             .subtract(-1, "hours") // -1 = VIE, 5 = NYC, 8 = SF
