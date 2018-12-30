@@ -183,6 +183,7 @@ function updateFoodData() {
             protein: data["protein"],
             fat: data["fat"]
         };
+        todaysFoodItems = [];
         for (var rawFoodItemIndex in data["entries"]) {
             var rawFoodItem = data["entries"][rawFoodItemIndex];
             todaysFoodItems.push({

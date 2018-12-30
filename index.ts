@@ -234,6 +234,7 @@ function updateFoodData() {
         fat: data["fat"]
       };
 
+      todaysFoodItems = [];
       for (let rawFoodItemIndex in data["entries"]) {
         let rawFoodItem = data["entries"][rawFoodItemIndex];
         todaysFoodItems.push({
