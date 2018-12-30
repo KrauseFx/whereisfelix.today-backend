@@ -33,6 +33,11 @@ export interface Food {
   fat: Number;
 }
 
+interface FoodItem {
+  name: String;
+  amount: String;
+}
+
 export interface MyData {
   loading: boolean;
   currentCityText: string;
@@ -48,6 +53,7 @@ export interface MyData {
   lastCommitLink: String;
   lastCommitTimestamp: Date;
   todaysMacros: Food;
+  todaysFoodItems: FoodItem[];
 
   // Arrays
   nextStays: Stay[];

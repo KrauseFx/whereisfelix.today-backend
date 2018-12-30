@@ -66,6 +66,35 @@
             <b>{{data.todaysMacros.fat}}g fat</b>of 70g
           </span>
         </div>
+
+        <div class="foodEntries">
+          <table>
+            <tr 
+              *ngFor="let currentEntry of data.todaysFoodItems; index as i" 
+              class="{{i < 3 || showAllFood ? 'showAllFood' : 'foodDetailHidden'}}"
+              >
+              <td>
+                {{currentEntry.name}}
+              </td>
+              <td>
+                {{currentEntry.amount}}
+              </td>
+            </tr>
+            <tr *ngIf="data.todaysFoodItems.length > 3">
+              <td colspan="2">
+                <a class="viewAllFoodButton" (click)="toggleFood()">
+                  <span *ngIf="showAllFood">
+                    Hide food entries
+                  </span>
+                  <span *ngIf="!showAllFood">
+                    Show all food entries
+                  </span>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>
+
         <hr />
       </span>
 

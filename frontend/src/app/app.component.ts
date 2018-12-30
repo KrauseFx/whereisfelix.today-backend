@@ -26,12 +26,13 @@ export class AppComponent {
     // e.g. the mood, so we just wait
     setInterval(function() {
       self.refreshData();
-    }, 3000);
+    }, 5000);
   }
 
   data = <MyData> {
     loading: true
   };
+  showAllFood = false
 
   refreshData() {
     this.dataService.getData()
@@ -45,5 +46,9 @@ export class AppComponent {
           loading: true
         }
       })
+  }
+
+  toggleFood() {
+    this.showAllFood = !this.showAllFood;
   }
 }
