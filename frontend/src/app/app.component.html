@@ -19,23 +19,25 @@
       <img src="{{data.profilePictureUrl}}" id="profilePicture" />
       <h1 *ngIf="!data.isMoving">Felix is currently in <b>{{data.currentCityText}}</b></h1>
       <h1 *ngIf="data.isMoving">Felix is currently flying to <b>{{data.currentCityText}}</b></h1>
-      <h3>Leaving for {{data.nextCityText}} {{data.nextCityDate}}</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Upcoming trips</th>
-            <th>From</th>
-            <th>To</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let currentStay of data.nextStays">
-            <td>{{currentStay.name}}</td>
-            <td>{{currentStay.fromDate | amDateFormat:'DD MMM'}}</td>
-            <td>{{currentStay.toDate | amDateFormat:'DD MMM'}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <span *ngIf="data.nextCityText">
+        <h3>Leaving for {{data.nextCityText}} {{data.nextCityDate}}</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Upcoming trips</th>
+              <th>From</th>
+              <th>To</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let currentStay of data.nextStays">
+              <td>{{currentStay.name}}</td>
+              <td>{{currentStay.fromDate | amDateFormat:'DD MMM'}}</td>
+              <td>{{currentStay.toDate | amDateFormat:'DD MMM'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </span>
       <hr />
       <span *ngIf="data.currentMoodLevel">
         <h1 style="margin-bottom: 30px">

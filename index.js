@@ -17,6 +17,7 @@ var githubUser = "KrauseFx";
 var githubFullName = "Felix Krause";
 var myFitnessPalUser = "krausefx1";
 // Cache
+var finishedLoadingNomadList = false;
 var currentCityText = null;
 var currentLat = null;
 var currentLng = null;
@@ -75,6 +76,7 @@ function updateNomadListData() {
                     });
                 }
             }
+            finishedLoadingNomadList = true;
             console.log("Successfully loaded nomadlist data");
         }
     });
@@ -267,10 +269,7 @@ function generateMapsUrl() {
         googleMapsKey);
 }
 function allDataLoaded() {
-    if (currentCityText == null || nextCityText == null || nextCityDate == null) {
-        return false;
-    }
-    if (nextStays.length == 0) {
+    if (!finishedLoadingNomadList) {
         return false;
     }
     if (lastCommitMessage == null) {

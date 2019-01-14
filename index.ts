@@ -54,6 +54,7 @@ interface FoodItem {
 }
 
 // Cache
+let finishedLoadingNomadList: Boolean = false;
 let currentCityText: String = null;
 let currentLat: Number = null;
 let currentLng: Number = null;
@@ -115,6 +116,7 @@ function updateNomadListData() {
           });
         }
       }
+      finishedLoadingNomadList = true;
       console.log("Successfully loaded nomadlist data");
     }
   });
@@ -339,10 +341,7 @@ function generateMapsUrl() {
 }
 
 function allDataLoaded() {
-  if (currentCityText == null || nextCityText == null || nextCityDate == null) {
-    return false;
-  }
-  if (nextStays.length == 0) {
+  if (!finishedLoadingNomadList) {
     return false;
   }
   if (lastCommitMessage == null) {
