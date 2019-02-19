@@ -39,26 +39,26 @@ interface FoodItem {
 }
 
 export interface MyData {
-  loading: boolean;
-  currentCityText: string;
-  nextCityText: string;
-  nextCityDate: string;
-  currentMoodEmoji: string;
-  currentMoodLevel: string;
-  currentMoodRelativeTime: string;
-  localTime: string;
-  mapsUrl: string;
-  profilePictureUrl: string;
-  lastCommitMessage: String;
-  lastCommitLink: String;
-  lastCommitTimestamp: Date;
-  todaysMacros: Food;
-  todaysFoodItems: FoodItem[];
+  loading?: boolean;
+  currentCityText?: string;
+  nextCityText?: string;
+  nextCityDate?: string;
+  currentMoodEmoji?: string;
+  currentMoodLevel?: string;
+  currentMoodRelativeTime?: string;
+  localTime?: string;
+  mapsUrl?: string;
+  profilePictureUrl?: string;
+  lastCommitMessage?: String;
+  lastCommitLink?: String;
+  lastCommitTimestamp?: Date;
+  todaysMacros?: Food;
+  todaysFoodItems?: FoodItem[];
 
   // Arrays
-  nextStays: Stay[];
-  nextConferences: Conference[];
-  recentPhotos: Photo[];
+  nextStays?: Stay[];
+  nextConferences?: Conference[];
+  recentPhotos?: Photo[];
 }
 
 @Injectable()
@@ -84,8 +84,9 @@ export class DataService {
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
     }
+    return null;
     // return an ErrorObservable with a user-facing error message
-    return new ErrorObservable(
-      'Something bad happened; please try again later.');
+    // return new ErrorObservable(
+    //   'Something bad happened; please try again later.');
   };
 }
