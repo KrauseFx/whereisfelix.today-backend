@@ -29,6 +29,6 @@
     "needle": "^2.2.4",
     "prettier": "^1.14.3",
     "tsd": "^0.6.5",
-    "typescript": "^2.9.2"
+    "typescript": "^3.0.0"
   }
 }
