@@ -19,25 +19,23 @@
       <img src="{{data.profilePictureUrl}}" id="profilePicture" />
       <h1 *ngIf="!data.isMoving">Felix is currently in <b>{{data.currentCityText}}</b></h1>
       <h1 *ngIf="data.isMoving">Felix is currently flying to <b>{{data.currentCityText}}</b></h1>
-      <span *ngIf="data.nextCityText">
-        <h3>Leaving for {{data.nextCityText}} {{data.nextCityDate}}</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Upcoming trips</th>
-              <th>From</th>
-              <th>To</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let currentStay of data.nextStays">
-              <td>{{currentStay.name}}</td>
-              <td>{{currentStay.fromDate | amDateFormat:'DD MMM'}}</td>
-              <td>{{currentStay.toDate | amDateFormat:'DD MMM'}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </span>
+      <h3>Leaving for {{data.nextCityText}} {{data.nextCityDate}}</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Upcoming trips</th>
+            <th>From</th>
+            <th>To</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let currentStay of data.nextStays">
+            <td>{{currentStay.name}}</td>
+            <td>{{currentStay.fromDate | amDateFormat:'DD MMM'}}</td>
+            <td>{{currentStay.toDate | amDateFormat:'DD MMM'}}</td>
+          </tr>
+        </tbody>
+      </table>
       <hr />
       <span *ngIf="data.currentMoodLevel">
         <h1 style="margin-bottom: 30px">
@@ -130,8 +128,8 @@
       <p style="text-align: center; margin-bottom: 25px; margin-top: -10px;" class="footnote">on GitHub repo <a href="https://github.com/{{data.lastCommitRepo}}" target="_blank">{{data.lastCommitRepo}}</a></p>
       <hr />
 
-      <h2>Conferences</h2>
-      <table>
+      <h2 style="display: none;">Conferences</h2>
+      <table style="display: none;">
         <thead>
           <tr>
             <th>Conference</th>
@@ -152,7 +150,7 @@
         </tbody>
       </table>
 
-      <hr />
+      <hr style="display: none;" />
 
       <!-- TODO: check for no events -->
       <h2>Upcoming events</h2>
