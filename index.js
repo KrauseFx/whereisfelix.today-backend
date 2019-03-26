@@ -63,7 +63,9 @@ function updateNomadListData() {
             currentLat = now["latitude"];
             currentLng = now["longitude"];
             nextCityText = next["city"];
-            nextCityDate = moment(next["date_start"]).fromNow();
+            if (nextCityText != null) {
+                nextCityDate = moment(next["date_start"]).fromNow();
+            }
             for (var index in parsedNomadListData["trips"]) {
                 var currentStay = parsedNomadListData["trips"][index];
                 if (currentStay["epoch_start"] > new Date().getTime() / 1000) {

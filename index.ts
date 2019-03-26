@@ -102,7 +102,9 @@ function updateNomadListData() {
       currentLat = now["latitude"];
       currentLng = now["longitude"];
       nextCityText = next["city"];
-      nextCityDate = moment(next["date_start"]).fromNow();
+      if (nextCityText != null) {
+        nextCityDate = moment(next["date_start"]).fromNow();
+      }
 
       for (let index in parsedNomadListData["trips"]) {
         let currentStay = parsedNomadListData["trips"][index];
