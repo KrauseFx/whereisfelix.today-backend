@@ -20,7 +20,7 @@
       <h1 *ngIf="!data.isMoving">Felix is currently in <b>{{data.currentCityText}}</b></h1>
       <h1 *ngIf="data.isMoving">Felix is currently flying to <b>{{data.currentCityText}}</b></h1>
       <h3 *ngIf="data.nextCityText">Leaving for {{data.nextCityText}} {{data.nextCityDate}}</h3>
-      <table>
+      <table *ngIf="data.nextCityText">
         <thead>
           <tr>
             <th>Upcoming trips</th>
