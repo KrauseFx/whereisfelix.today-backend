@@ -23,7 +23,7 @@
     "@types/needle": "^2.0.2",
     "cors": "^2.8.4",
     "express": "^4.16.4",
-    "ical": "^0.5.0",
+    "ical": "^0.6.0",
     "mfp": "git+https://git@github.com/KrauseFx/mfp.git",
     "moment": "^2.22.2",
     "needle": "^2.2.4",
