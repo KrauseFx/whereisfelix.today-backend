@@ -152,9 +152,8 @@
 
       <hr style="display: none;" />
 
-      <!-- TODO: check for no events -->
-      <h2>Upcoming events</h2>
-      <table>
+      <h2 *ngIf="data.nextEvents.length > 0">Upcoming events</h2>
+      <table *ngIf="data.nextEvents.length > 0">
         <thead>
           <tr>
             <th class="hideOnMobile">Title</th>
@@ -171,7 +170,7 @@
         </tbody>
       </table>
       <br />
-      <hr />
+      <hr *ngIf="data.nextEvents.length > 0" />
 
       <footer>
         <p>
