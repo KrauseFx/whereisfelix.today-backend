@@ -20,15 +20,15 @@
   },
   "homepage": "https://whereisfelix.today",
   "dependencies": {
-    "@types/needle": "^2.0.2",
-    "cors": "^2.8.4",
+    "@types/needle": "^2.0.4",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "ical": "^0.6.0",
     "mfp": "git+https://git@github.com/KrauseFx/mfp.git",
-    "moment": "^2.22.2",
+    "moment": "^2.24.0",
     "needle": "^2.2.4",
-    "prettier": "^1.14.3",
+    "prettier": "^1.16.4",
     "tsd": "^0.7.0",
-    "typescript": "^3.0.0"
+    "typescript": "^3.3.4000"
   }
 }
