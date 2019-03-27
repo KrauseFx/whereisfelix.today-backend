@@ -54,6 +54,7 @@ export interface MyData {
   lastCommitTimestamp?: Date;
   todaysMacros?: Food;
   todaysFoodItems?: FoodItem[];
+  numberOfTodoItems?: number;
 
   // Arrays
   nextStays?: Stay[];

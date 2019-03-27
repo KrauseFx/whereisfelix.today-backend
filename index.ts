@@ -74,6 +74,7 @@ let lastCommitLink: String;
 let lastCommitTimestamp: Date;
 let todaysMacros: Food;
 let todaysFoodItems: Array<FoodItem> = [];
+let numberOfTodoItems: number;
 
 // Refresher methods
 function updateNomadListData() {
@@ -193,6 +194,30 @@ function updateCommitMessage() {
     } else {
       console.log(error);
     }
+  });
+}
+
+function fetchTrelloItems() {
+  // via https://developers.trello.com/reference#boardsboardidlabels
+  let trelloUrl =
+    "https://api.trello.com/1/boards/" +
+    process.env.TRELLO_BOARD_ID +
+    "/lists?cards=open&card_fields=all&filter=open&fields=all&key=" +
+    process.env.TRELLO_API_KEY +
+    "&token=" +
+    process.env.TRELLO_API_TOKEN;
+
+  numberOfTodoItems = 0;
+
+  needle.get(trelloUrl, function(error, response, body) {
+    if (response.statusCode == 200) {
+      for (var i in body) {
+        let currentList = body[i];
+        numberOfTodoItems += currentList["cards"].length;
+      }
+    }
+
+    console.log("Number of Trello tasks: " + numberOfTodoItems);
   });
 }
 
@@ -359,7 +384,9 @@ setInterval(fetchMostRecentPhotos, 30 * 60 * 1000);
 setInterval(updateCalendar, 15 * 60 * 1000);
 setInterval(updateCommitMessage, 5 * 60 * 1000);
 setInterval(updateFoodData, 15 * 60 * 1000);
+setInterval(fetchTrelloItems, 15 * 60 * 1000);
 
+fetchTrelloItems();
 fetchMostRecentPhotos();
 updateNomadListData();
 updateMood();
@@ -380,6 +407,7 @@ function getDataDic() {
     nextEvents: nextEvents,
     nextStays: nextStays,
     isMoving: isMoving,
+    numberOfTodoItems: numberOfTodoItems,
     lastCommitMessage: lastCommitMessage,
     lastCommitRepo: lastCommitRepo,
     lastCommitLink: lastCommitLink,
