@@ -29,19 +29,6 @@ h1, h2, h3, h4, p {
   background-position: 50% 50%;
 }
 
-#profilePicture {
-  width: 128px;
-  height: 128px;
-  border-radius: 70px;
-  border: 5px white solid;
-  position: absolute;
-  top: 130px;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-}
-
 #content {
   padding: 25px;
   padding-top: 80px;

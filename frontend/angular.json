@@ -23,9 +23,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/instapipe.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "src/assets/instapipe.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -80,9 +83,12 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/instapipe.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "src/assets/instapipe.js"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

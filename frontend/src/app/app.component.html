@@ -13,10 +13,34 @@
   </body>
 
   <body *ngIf="data.currentCityText">
+    <div id="storyViewer">
+      <div id="storyContent">
+        <div id="storyProgressBar"></div>
+        <div id="storyBackButton" class="storyButton" onclick="userDidClickPreviousStory()">
+          <
+        </div>
+        <div id="storyNextButton" class="storyButton" onclick="userDidClickNextStory()">
+          >
+        </div>
+
+        <video autoplay playsinline muted id="storyVideoViewer">
+        </video>
+        <div id="storyPhotoViewer" onclick="userDidClickNextStory()">
+        </div>
+      </div>
+      <img src="" id="fakeContentToPreloadImages" />
+    </div>
+
     <div id="map" [ngStyle]="{'background-image': 'url(\'' + data.mapsUrl + '\')'}"></div>
 
     <div id="content">
-      <img src="{{data.profilePictureUrl}}" id="profilePicture" />
+      <div id="story-available"></div>
+      <img 
+        src="{{data.profilePictureUrl}}"
+        id="storyProfilePicture"
+        onclick="showStories()"
+      />
+
       <h1 *ngIf="!data.isMoving">Felix is currently in <b>{{data.currentCityText}}</b></h1>
       <h1 *ngIf="data.isMoving">Felix is currently flying to <b>{{data.currentCityText}}</b></h1>
       <h3 *ngIf="data.nextCityText">Leaving for {{data.nextCityText}} {{data.nextCityDate}}</h3>
