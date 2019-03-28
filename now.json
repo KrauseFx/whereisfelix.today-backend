@@ -5,6 +5,9 @@
   "env": {
     "ICS_URL": "@where-is-felix-ics_url",
     "WORK_ICS_URL": "@where-is-felix-work_ics_url",
-    "INSTAGRAM_ACCESS_TOKEN": "@where-is-felix-instagram-access-token"
+    "INSTAGRAM_ACCESS_TOKEN": "@where-is-felix-instagram-access-token",
+    "TRELLO_BOARD_ID": "@where-is-felix-trello_board_id",
+    "TRELLO_API_KEY": "@where-is-felix-trello_api_key",
+    "TRELLO_API_TOKEN": "@where-is-felix-trello_api_token"
   }
 }
