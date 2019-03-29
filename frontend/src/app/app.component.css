@@ -129,11 +129,11 @@ footer {
   text-align: center;
   width: 100%;
   line-height: 40px;
+  overflow: none;
 }
 
 .foodContainer > span {
   margin: 0 30px;
-  white-space:nowrap;
 }
 
 .foodEntries {
