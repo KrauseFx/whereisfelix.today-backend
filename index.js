@@ -166,7 +166,9 @@ function fetchTrelloItems() {
         if (response.statusCode == 200) {
             for (var i in body) {
                 var currentList = body[i];
-                numberOfTodoItems += currentList["cards"].length;
+                if (currentList["name"] != "Done") {
+                    numberOfTodoItems += currentList["cards"].length;
+                }
             }
         }
         console.log("Number of Trello tasks: " + numberOfTodoItems);

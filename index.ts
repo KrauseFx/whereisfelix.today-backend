@@ -213,7 +213,9 @@ function fetchTrelloItems() {
     if (response.statusCode == 200) {
       for (var i in body) {
         let currentList = body[i];
-        numberOfTodoItems += currentList["cards"].length;
+        if (currentList["name"] != "Done") {
+          numberOfTodoItems += currentList["cards"].length;
+        }
       }
     }
 
