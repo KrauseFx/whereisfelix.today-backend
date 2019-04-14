@@ -11,7 +11,7 @@ app.use(cors());
 
 // Metadata
 let nomadlistUser = "krausefx";
-let moodHostUrl = "https://krausefx-mood.herokuapp.com/";
+let moodHostUrl = "https://fx-life-sheet.herokuapp.com/";
 let facebookId = "100000723486971";
 let googleMapsKey = "AIzaSyDeiw5iiluUP6Txt7H584no1adlsDj-jUc";
 let githubUser = "KrauseFx";
@@ -130,8 +130,7 @@ function updateMood() {
     if (error) {
       console.log(error);
     } else if (response.statusCode == 200) {
-      let parsedBody = JSON.parse(body);
-      switch (parseInt(parsedBody["value"])) {
+      switch (parseInt(body["value"])) {
         case 5:
           currentMoodLevel = "pumped, energized";
           currentMoodEmoji = "🤩";
@@ -157,7 +156,7 @@ function updateMood() {
           currentMoodEmoji = "🙃";
           break;
       }
-      currentMoodRelativeTime = moment(new Date(parsedBody["time"])).fromNow();
+      currentMoodRelativeTime = moment(new Date(body["time"])).fromNow();
     }
   });
 }

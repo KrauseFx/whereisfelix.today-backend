@@ -10,7 +10,7 @@ var mfp = require("mfp"); // MyFitnessPal
 app.use(cors());
 // Metadata
 var nomadlistUser = "krausefx";
-var moodHostUrl = "https://krausefx-mood.herokuapp.com/";
+var moodHostUrl = "https://fx-life-sheet.herokuapp.com/";
 var facebookId = "100000723486971";
 var googleMapsKey = "AIzaSyDeiw5iiluUP6Txt7H584no1adlsDj-jUc";
 var githubUser = "KrauseFx";
@@ -91,8 +91,7 @@ function updateMood() {
             console.log(error);
         }
         else if (response.statusCode == 200) {
-            var parsedBody = JSON.parse(body);
-            switch (parseInt(parsedBody["value"])) {
+            switch (parseInt(body["value"])) {
                 case 5:
                     currentMoodLevel = "pumped, energized";
                     currentMoodEmoji = "🤩";
@@ -118,7 +117,7 @@ function updateMood() {
                     currentMoodEmoji = "🙃";
                     break;
             }
-            currentMoodRelativeTime = moment(new Date(parsedBody["time"])).fromNow();
+            currentMoodRelativeTime = moment(new Date(body["time"])).fromNow();
         }
     });
 }
