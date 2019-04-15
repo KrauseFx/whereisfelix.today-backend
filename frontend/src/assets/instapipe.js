@@ -1,4 +1,4 @@
-var url = host + "stories.json";
+let host = "https://instapipe.herokuapp.com/"
 
 var storiesToShow = null;
 var timeOutForPhotos = 4.0;
