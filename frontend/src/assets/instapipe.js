@@ -1,4 +1,5 @@
 let host = "https://instapipe.herokuapp.com/"
+let userId = "4409072"
 
 var storiesToShow = null;
 var timeOutForPhotos = 4.0;
@@ -11,7 +12,7 @@ var nextStoryTimeout = null;
 var currentIndex = -1;
 
 function preloadStoriesIndex() {
-  var url = host + "stories.json";
+  var url = host + "stories.json?user_id=" + userId;
 
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function() { 
@@ -38,6 +39,12 @@ function showStories() {
   if (storiesContent == null || storiesContent.length == 0) {
     return;
   }
+
+  // Copy the profile picture URL to the story header, to only have to define it once
+  // we only do that once everything is loaded, as depending on the website
+  // the image node might not be acccessible yet
+  let profileImageURL = document.getElementById("storyProfilePicture").src
+  document.getElementById("storyHeaderProfilePicture").src = profileImageURL;
 
   storiesToShow = []
   progressBars = []
@@ -94,12 +101,18 @@ function renderCurrentStory() {
   let photoViewer = document.getElementById("storyPhotoViewer")
   let progressBarContent = progressBars[currentIndex]
 
+  document.getElementById("storyTimestamp").textContent = currentStory["formatted_time_diff"]
+
   if (currentStory["is_video"]) {
     videoViewer.src = currentStory["signed_url"]
     videoViewer.style.display = "block"
     videoViewer.onended = function() {
-      currentIndex++;
-      renderCurrentStory();
+      if (currentIndex < storiesToShow.length - 1) {
+        currentIndex++;
+        renderCurrentStory();
+      } else {
+        dismissStories();
+      }
     };
     let videoUpdatedDuration = function() {
       // this is triggered when the video file was loaded

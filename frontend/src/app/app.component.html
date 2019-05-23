@@ -15,6 +15,15 @@
   <body *ngIf="data.currentCityText">
     <div id="storyViewer">
       <div id="storyContent">
+        <div id="storyHeader">
+          <img 
+            id="storyHeaderProfilePicture"
+            onclick="window.open('https://instagram.com/krausefx', '_blank')"
+          />
+          <p id="storyUserlink"><a href="https://instagram.com/krausefx" target="_blank">KrauseFx</a></p>
+          <p id="storyTimestamp"></p>
+          <p id="poweredByInstapipe"><a href="https://instapipe.net" target="_blank">instapipe.net</a></p>
+        </div>
         <div id="storyProgressBar"></div>
         <div id="storyBackButton" class="storyButton" onclick="userDidClickPreviousStory()">
           <
@@ -30,6 +39,7 @@
       </div>
       <img src="" id="fakeContentToPreloadImages" />
     </div>
+
 
     <div id="map" [ngStyle]="{'background-image': 'url(\'' + data.mapsUrl + '\')'}"></div>
 
