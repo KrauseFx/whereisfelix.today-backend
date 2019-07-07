@@ -11,7 +11,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod && cp now.json dist/whereisfelix && cd dist/whereisfelix && now && now alias"
+    "deploy": "ng build --prod && cp now.json dist/whereisfelix && cd dist/whereisfelix && now --target production && now alias"
   },
   "dependencies": {
     "@angular/animations": "~7.2.0",
