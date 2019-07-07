@@ -21,7 +21,14 @@ function preloadStoriesIndex() {
       if (storiesContent.length == 0) {
         // Default it's shown, as it looks nicer
         // and I post stories most days :joy:
-        document.getElementById("story-available").style.opacity = 0.0
+        try { 
+          document.getElementById("story-available").style.opacity = 0.0
+        } catch {
+          // hacky way to make things work with Angular
+          setTimeout(function() {
+            document.getElementById("story-available").style.opacity = 0.0
+          }, 700)
+        }
       } else {
         // preload the first story if it's a picture
         if (!storiesContent[0]["is_video"]) {
