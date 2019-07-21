@@ -10,7 +10,7 @@ var mfp = require("mfp"); // MyFitnessPal
 app.use(cors());
 // Metadata
 var nomadlistUser = "krausefx";
-var moodHostUrl = "https://fx-life-sheet.herokuapp.com/";
+var lifesheetURL = "https://fx-life-sheet.herokuapp.com/";
 var facebookId = "100000723486971";
 var googleMapsKey = "AIzaSyDeiw5iiluUP6Txt7H584no1adlsDj-jUc";
 var githubUser = "KrauseFx";
@@ -26,6 +26,7 @@ var nextCityDate = null;
 var nextStays = [];
 var currentMoodLevel = null;
 var currentMoodEmoji = null;
+var otherFxLifeData;
 var currentMoodRelativeTime = null;
 var nextEvents = [];
 var nextConferences = [];
@@ -85,13 +86,14 @@ function updateNomadListData() {
     });
 }
 function updateMood() {
-    var moodUrl = moodHostUrl + "current_mood.json";
-    needle.get(moodUrl, function (error, response, body) {
+    needle.get(lifesheetURL, function (error, response, body) {
         if (error) {
             console.log(error);
         }
         else if (response.statusCode == 200) {
-            switch (parseInt(body["value"])) {
+            otherFxLifeData = body;
+            var mood = parseInt(body["mood"]["value"]);
+            switch (mood) {
                 case 5:
                     currentMoodLevel = "pumped, energized";
                     currentMoodEmoji = "🤩";
@@ -117,7 +119,7 @@ function updateMood() {
                     currentMoodEmoji = "🙃";
                     break;
             }
-            currentMoodRelativeTime = moment(new Date(body["time"])).fromNow();
+            currentMoodRelativeTime = moment(new Date(body["mood"]["time"])).fromNow();
         }
     });
 }
@@ -322,6 +324,7 @@ function getDataDic() {
         nextCityText: nextCityText,
         nextCityDate: nextCityDate,
         currentMoodLevel: currentMoodLevel,
+        otherFxLifeData: otherFxLifeData,
         currentMoodEmoji: currentMoodEmoji,
         currentMoodRelativeTime: currentMoodRelativeTime,
         nextConferences: nextConferences,

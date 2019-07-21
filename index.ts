@@ -11,7 +11,7 @@ app.use(cors());
 
 // Metadata
 let nomadlistUser = "krausefx";
-let moodHostUrl = "https://fx-life-sheet.herokuapp.com/";
+let lifesheetURL = "https://fx-life-sheet.herokuapp.com/";
 let facebookId = "100000723486971";
 let googleMapsKey = "AIzaSyDeiw5iiluUP6Txt7H584no1adlsDj-jUc";
 let githubUser = "KrauseFx";
@@ -63,6 +63,7 @@ let nextCityDate: String = null;
 let nextStays: Array<Stay> = [];
 let currentMoodLevel: String = null;
 let currentMoodEmoji: String = null;
+let otherFxLifeData;
 let currentMoodRelativeTime: String = null;
 let nextEvents: Array<any> = [];
 let nextConferences: Array<Conference> = [];
@@ -125,12 +126,14 @@ function updateNomadListData() {
   });
 }
 function updateMood() {
-  let moodUrl = moodHostUrl + "current_mood.json";
-  needle.get(moodUrl, function(error, response, body) {
+  needle.get(lifesheetURL, function(error, response, body) {
     if (error) {
       console.log(error);
     } else if (response.statusCode == 200) {
-      switch (parseInt(body["value"])) {
+      otherFxLifeData = body;
+
+      let mood = parseInt(body["mood"]["value"]);
+      switch (mood) {
         case 5:
           currentMoodLevel = "pumped, energized";
           currentMoodEmoji = "🤩";
@@ -156,7 +159,9 @@ function updateMood() {
           currentMoodEmoji = "🙃";
           break;
       }
-      currentMoodRelativeTime = moment(new Date(body["time"])).fromNow();
+      currentMoodRelativeTime = moment(
+        new Date(body["mood"]["time"])
+      ).fromNow();
     }
   });
 }
@@ -402,6 +407,7 @@ function getDataDic() {
     nextCityText: nextCityText,
     nextCityDate: nextCityDate,
     currentMoodLevel: currentMoodLevel,
+    otherFxLifeData: otherFxLifeData,
     currentMoodEmoji: currentMoodEmoji,
     currentMoodRelativeTime: currentMoodRelativeTime,
     nextConferences: nextConferences,
