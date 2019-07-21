@@ -89,16 +89,16 @@
         <h1 style="margin-bottom: 10px">Felix ate today</h1>
         <div class="foodContainer">
           <span>
-            <b>{{data.todaysMacros.kcal}} kcal</b>of 2830 kcal
+            <b>{{data.todaysMacros.kcal}} kcal</b>of {{data.otherFxLifeData["macrosCarbs"]["value"] * 4 + data.otherFxLifeData["macrosProtein"]["value"] * 4 + data.otherFxLifeData["macrosFat"]["value"] * 9}} kcal
           </span>
           <span>
-            <b>{{data.todaysMacros.carbs}}g carbs</b>of 325g
+            <b>{{data.todaysMacros.carbs}}g carbs</b>of {{data.otherFxLifeData["macrosCarbs"]["value"]}}g
           </span>
           <span>
-            <b>{{data.todaysMacros.protein}}g protein</b>of 225g
+            <b>{{data.todaysMacros.protein}}g protein</b>of {{data.otherFxLifeData["macrosProtein"]["value"]}}g
           </span>
           <span>
-            <b>{{data.todaysMacros.fat}}g fat</b>of 70g
+            <b>{{data.todaysMacros.fat}}g fat</b>of {{data.otherFxLifeData["macrosFat"]["value"]}}g
           </span>
         </div>
 
@@ -137,11 +137,18 @@
       <h1><b>{{data.numberOfTodoItems}}</b></h1>
       <hr />
 
-      <h1>Last measurements</h1>
-      <div style="margin-top: 20px; margin-left: auto; margin-right: auto; text-align: left; width: 200px;">
-        <p>Weight: <b>81.7 kg</b> (180.1 lbs)</p>
-        <p>Height: <b>1.93 m</b> (6'4")</p>
-        <p>Body Fat: <b>10.3%</b> (<a href="https://en.wikipedia.org/wiki/Dual-energy_X-ray_absorptiometry" target="_blank">DEXA</a>)</p>
+      <div style="margin-top: 20px; margin-left: auto; margin-right: auto; text-align: left; width: 350px;">
+        <p>
+          <span class="leftCol">Weight</span><b>{{(data.otherFxLifeData["weight"]["value"] * 0.453592) | number:'1.2'}} kg</b>  / {{data.otherFxLifeData["weight"]["value"]}} lbs
+          <span class="footnote" style="margin-left: 5px">({{data.otherFxLifeData["weight"]["time"] | amTimeAgo}})</span>
+        </p>
+
+        <p><span class="leftCol">Height</span> <b>1.93 m</b> (6'4")</p>
+        <p><span class="leftCol">Body Fat</span> <b>10.3%</b> (<a href="https://en.wikipedia.org/wiki/Dual-energy_X-ray_absorptiometry" target="_blank">DEXA</a>)</p>
+        <p><span class="leftCol">Yesterday</span> <b>{{data.otherFxLifeData["dailySteps"]["value"] | number: '.'}}</b> steps</p>
+        <p><span class="leftCol">Slept</span> <b>{{data.otherFxLifeData["sleepDuration"]["value"] | number: '.'}} hours</b> tonight</p>
+        <p><span class="leftCol">Phone time</span> <b>{{data.otherFxLifeData["weeklyPhoneTime"]["value"]}} hours</b> the last week</p>
+        <p><span class="leftCol">Mac time</span> <b>{{data.otherFxLifeData["weeklyComputerTime"]["value"]}} hours</b> the last week</p>
       </div>
       <hr />
 

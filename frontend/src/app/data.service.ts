@@ -55,6 +55,7 @@ export interface MyData {
   todaysMacros?: Food;
   todaysFoodItems?: FoodItem[];
   numberOfTodoItems?: number;
+  otherFxLifeData?: any;
 
   // Arrays
   nextStays?: Stay[];

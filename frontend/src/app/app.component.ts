@@ -26,7 +26,7 @@ export class AppComponent {
     // e.g. the mood, so we just wait
     setInterval(function() {
       self.refreshData();
-    }, 5000);
+    }, 15000);
   }
 
   data = <MyData> {
