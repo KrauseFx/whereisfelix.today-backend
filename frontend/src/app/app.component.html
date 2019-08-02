@@ -139,7 +139,7 @@
 
       <div style="margin-top: 20px; margin-left: auto; margin-right: auto; text-align: left; width: 350px;">
         <p>
-          <span class="leftCol">Weight</span><b>{{(data.otherFxLifeData["weight"]["value"] * 0.453592) | number:'1.2'}} kg</b>  / {{data.otherFxLifeData["weight"]["value"]}} lbs
+          <span class="leftCol">Weight</span><b>{{(data.otherFxLifeData["weight"]["value"] * 0.453592) | number:'1.2'}} kg</b>  / {{data.otherFxLifeData["weight"]["value"] | number:'1.2'}} lbs
           <span class="footnote" style="margin-left: 5px">({{data.otherFxLifeData["weight"]["time"] | amTimeAgo}})</span>
         </p>
 
