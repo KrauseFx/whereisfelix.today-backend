@@ -48,7 +48,7 @@ function updateNomadListData() {
             console.log(error);
         }
         else if (response.statusCode == 200) {
-            var parsedNomadListData = JSON.parse(body);
+            var parsedNomadListData = body;
             var now = parsedNomadListData["location"]["now"];
             var next = parsedNomadListData["location"]["next"];
             if (now["date_start"] == moment().format("YYYY-MM-DD")) {

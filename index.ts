@@ -86,7 +86,7 @@ function updateNomadListData() {
     if (error) {
       console.log(error);
     } else if (response.statusCode == 200) {
-      let parsedNomadListData = JSON.parse(body);
+      let parsedNomadListData = body;
       let now = parsedNomadListData["location"]["now"];
       let next = parsedNomadListData["location"]["next"];
 
