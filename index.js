@@ -64,7 +64,9 @@ function updateNomadListData() {
             }
             currentLat = now["latitude"];
             currentLng = now["longitude"];
-            nextCityText = next["city"];
+            if (next) {
+                nextCityText = next["city"];
+            }
             if (nextCityText != null) {
                 nextCityDate = moment(next["date_start"]).fromNow();
             }
