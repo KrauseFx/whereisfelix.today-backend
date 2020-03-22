@@ -1,5 +1,8 @@
 # `whereisfelix.today`
 
+<img src="screenshots/WhereIsFelixScreenshotDesktop.png">
+<img src="screenshots/WhereIsFelixScreenshot.jpg">
+
 ## Development dependencies
 
 ```
