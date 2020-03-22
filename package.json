@@ -22,13 +22,13 @@
   "dependencies": {
     "@types/needle": "^2.0.4",
     "cors": "^2.8.5",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "ical": "^0.6.0",
     "mfp": "git+https://git@github.com/KrauseFx/mfp.git",
     "moment": "^2.24.0",
-    "needle": "^2.2.4",
-    "prettier": "^1.16.4",
+    "needle": "^2.3.3",
+    "prettier": "^1.19.1",
     "tsd": "^0.9.0",
-    "typescript": "^3.3.4000"
+    "typescript": "^3.8.3"
   }
 }
