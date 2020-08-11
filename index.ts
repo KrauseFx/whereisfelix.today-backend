@@ -219,6 +219,9 @@ function fetchTrelloItems() {
   numberOfTodoItems = 0;
 
   needle.get(trelloUrl, function(error, response, body) {
+    if (error) {
+      console.error(error);
+    }
     if (response.statusCode == 200) {
       for (var i in body) {
         let currentList = body[i];
