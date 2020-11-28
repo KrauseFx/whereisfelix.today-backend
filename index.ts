@@ -12,7 +12,6 @@ app.use(cors());
 // Metadata
 let nomadlistUser = "krausefx";
 let lifesheetURL = "https://fx-life-sheet.herokuapp.com/";
-let facebookId = "100000723486971";
 let googleMapsKey = "AIzaSyDeiw5iiluUP6Txt7H584no1adlsDj-jUc";
 let githubUser = "KrauseFx";
 let githubFullName = "Felix Krause";
@@ -348,26 +347,14 @@ function updateCalendar() {
 }
 
 function updateConferences() {
-  // TODO: fetch them from https://github.com/KrauseFx/speaking
+  // TODO: potentially fetch them from https://github.com/KrauseFx/speaking
   nextConferences = [
-    {
-      location: "Belgrade, Serbia",
-      dates: "19th Oct",
-      name: "heapcon",
-      link: "https://heapcon.io/"
-    },
-    {
-      location: "Oslo, Norway",
-      dates: "01 - 02 Nov",
-      name: "Mobile Era",
-      link: "https://mobileera.rocks/"
-    },
-    {
-      location: "Tel Aviv, Israel",
-      dates: "14th November",
-      name: "Mobile @Scale Tel Aviv",
-      link: "https://atscaleconference.com/events/mobilescale-tel-aviv/"
-    }
+    // {
+    //   location: "Belgrade, Serbia",
+    //   dates: "19th Oct",
+    //   name: "heapcon",
+    //   link: "https://heapcon.io/"
+    // }
   ];
 }
 
@@ -395,7 +382,7 @@ function allDataLoaded() {
 setInterval(updateNomadListData, 60 * 60 * 1000);
 setInterval(updateMood, 30 * 60 * 1000);
 setInterval(fetchMostRecentPhotos, 30 * 60 * 1000);
-setInterval(updateCalendar, 15 * 60 * 1000);
+// setInterval(updateCalendar, 15 * 60 * 1000);
 setInterval(updateCommitMessage, 5 * 60 * 1000);
 setInterval(updateFoodData, 15 * 60 * 1000);
 setInterval(fetchTrelloItems, 15 * 60 * 1000);
@@ -404,7 +391,7 @@ fetchTrelloItems();
 fetchMostRecentPhotos();
 updateNomadListData();
 updateMood();
-updateCalendar();
+// updateCalendar();
 updateConferences();
 updateCommitMessage();
 updateFoodData();
@@ -433,8 +420,7 @@ function getDataDic() {
     localTime: moment()
       .subtract(-1, "hours") // -1 = VIE, 5 = NYC, 8 = SF
       .format("hh:mm a"), // TODO: actually take the current time zone - nomadlist doens't seem to expose the time zone
-    profilePictureUrl:
-      "https://graph.facebook.com/" + facebookId + "/picture?type=large",
+    profilePictureUrl: "https://krausefx.com/assets/FelixKrauseCropped.jpg",
     recentPhotos: recentPhotos
   };
 }
