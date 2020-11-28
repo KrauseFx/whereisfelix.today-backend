@@ -145,7 +145,7 @@
 
         <p><span class="leftCol">Height</span> <b>1.93 m</b> (6'4")</p>
         <p><span class="leftCol">Body Fat</span> <b>10.3%</b> <span class="footnote" style="margin-left: 5px">({{data.otherFxLifeData["dexaFatPercent"]["time"] | amTimeAgo}} via <a href="https://en.wikipedia.org/wiki/Dual-energy_X-ray_absorptiometry" target="_blank">DEXA</a>)</span></p>
-        <p><span class="leftCol">Slept</span> <b>{{data.otherFxLifeData["sleepDurationWithings"]["value"] | number: '.'}} hours</b> tonight</p>
+        <p><span class="leftCol">Slept</span> <b>{{data.otherFxLifeData["sleepDuration"]["value"] | number: '.'}} hours</b> tonight</p>
         <p><span class="leftCol">Last workout</span> <b>{{today | amDifference: data.otherFxLifeData["gym"]["time"] :'days'}} days ago</b></p>
         <p><span class="leftCol">Computer time</span> <b>{{data.otherFxLifeData["totalComputerUsageHours"]["value"] | number: '.'}} hours</b> since 2013</p>
         <p><span class="leftCol">Last meditated</span> <b>{{today | amDifference: data.otherFxLifeData["meditated"]["time"] :'days'}} days ago</b></p>
