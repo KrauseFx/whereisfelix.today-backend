@@ -18,7 +18,8 @@ npm run dev
 
 Push to production
 ```
-npm run deploy
+npm run dev # to convert typescript
+git push heroku master
 ```
 
 ## Frontend
