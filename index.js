@@ -221,10 +221,16 @@ function updateFoodData() {
         todaysFoodItems = [];
         for (var rawFoodItemIndex in data["entries"]) {
             var rawFoodItem = data["entries"][rawFoodItemIndex];
-            todaysFoodItems.push({
-                name: rawFoodItem["name"],
-                amount: rawFoodItem["amount"]
-            });
+            if (![
+                "TOTAL:",
+                "Exercises",
+                "Withings Health Mate  calorie adjustment"
+            ].includes(rawFoodItem["name"])) {
+                todaysFoodItems.push({
+                    name: rawFoodItem["name"],
+                    amount: rawFoodItem["amount"]
+                });
+            }
         }
         // TODO: use promises and reduce duplicate code
         if (todaysMacros.kcal == undefined || todaysMacros.kcal == 0) {

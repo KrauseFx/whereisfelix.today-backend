@@ -279,10 +279,18 @@ function updateFoodData() {
       todaysFoodItems = [];
       for (let rawFoodItemIndex in data["entries"]) {
         let rawFoodItem = data["entries"][rawFoodItemIndex];
-        todaysFoodItems.push({
-          name: rawFoodItem["name"],
-          amount: rawFoodItem["amount"]
-        });
+        if (
+          ![
+            "TOTAL:",
+            "Exercises",
+            "Withings Health Mate  calorie adjustment"
+          ].includes(rawFoodItem["name"])
+        ) {
+          todaysFoodItems.push({
+            name: rawFoodItem["name"],
+            amount: rawFoodItem["amount"]
+          });
+        }
       }
       // TODO: use promises and reduce duplicate code
 
