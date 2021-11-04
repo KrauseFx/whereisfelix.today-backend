@@ -39,6 +39,8 @@ npm run deploy
 
 ## Instagram
 
+### Update: Surprise surprise, Instagram shut down all APIs
+
 Since the Instagram API isn't perfect right now, and probably never will in the near future, this is how you can renew the access token:
 
 - Get the `Client ID` from [instagram.com/developer/clients/manage](https://instagram.com/developer/clients/manage/)
