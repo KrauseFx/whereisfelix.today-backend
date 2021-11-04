@@ -1,34 +1,36 @@
 {
-  "name": "whereisfelix.today-backend",
-  "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "prettier": "prettier index.ts --write",
-    "dev": "source .keys && prettier index.ts --write && tsc index.ts && node --inspect index.js",
-    "start": "NODE_ENV=production node index.js",
-    "deploy": "prettier index.ts --write && tsc index.ts && git push heroku mater"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/KrauseFx/whereisfelix.today.git"
-  },
-  "author": "KrauseFx",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/KrauseFx/whereisfelix.today/issues"
-  },
-  "homepage": "https://whereisfelix.today",
-  "dependencies": {
-    "@types/needle": "^2.5.1",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "ical": "^0.6.0",
-    "mfp": "git+https://git@github.com/KrauseFx/mfp.git",
-    "moment": "^2.29.1",
-    "needle": "^2.5.2",
-    "prettier": "^1.19.1",
-    "tsd": "^0.13.1",
-    "typescript": "^3.9.7"
-  }
+    "name": "whereisfelix.today-backend",
+    "version": "0.1.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "prettier": "prettier index.ts --write",
+        "dev": "source .keys && prettier index.ts --write && tsc index.ts && node --inspect index.js",
+        "start": "NODE_ENV=production node index.js",
+        "deploy": "prettier index.ts --write && tsc index.ts && git push heroku mater"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/KrauseFx/whereisfelix.today.git"
+    },
+    "author": "KrauseFx",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/KrauseFx/whereisfelix.today/issues"
+    },
+    "homepage": "https://whereisfelix.today",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "ical": "^0.8.0",
+        "mfp": "git+https://git@github.com/KrauseFx/mfp.git",
+        "moment": "^2.29.1",
+        "needle": "^3.0.0",
+        "prettier": "^2.4.1",
+        "tsd": "^0.18.0",
+        "typescript": "^4.4.4"
+    },
+    "devDependencies": {
+        "@types/node": "^16.11.6"
+    }
 }

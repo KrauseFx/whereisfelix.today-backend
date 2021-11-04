@@ -224,7 +224,7 @@ function updateFoodData() {
             if (![
                 "TOTAL:",
                 "Exercises",
-                "Withings Health Mate  calorie adjustment"
+                "Withings Health Mate  calorie adjustment",
             ].includes(rawFoodItem["name"])) {
                 todaysFoodItems.push({
                     name: rawFoodItem["name"],
@@ -235,9 +235,7 @@ function updateFoodData() {
         // TODO: use promises and reduce duplicate code
         if (todaysMacros.kcal == undefined || todaysMacros.kcal == 0) {
             // time zones and stuff, going back to yesterday
-            mfp.fetchSingleDate(myFitnessPalUser, moment()
-                .subtract(1, "day")
-                .format("YYYY-MM-DD"), ["calories", "protein", "carbs", "fat"], function (data) {
+            mfp.fetchSingleDate(myFitnessPalUser, moment().subtract(1, "day").format("YYYY-MM-DD"), ["calories", "protein", "carbs", "fat"], function (data) {
                 todaysMacros = {
                     kcal: data["calories"],
                     carbs: data["carbs"],

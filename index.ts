@@ -81,7 +81,7 @@ function updateNomadListData() {
   nextStays = [];
   let nomadlistUrl = "https://nomadlist.com/@" + nomadlistUser + ".json";
 
-  needle.get(nomadlistUrl, function(error, response, body) {
+  needle.get(nomadlistUrl, function (error, response, body) {
     if (error) {
       console.log(error);
     } else if (response.statusCode == 200) {
@@ -120,7 +120,7 @@ function updateNomadListData() {
             from: moment(currentStay["epoch_start"] * 1000).fromNow(),
             fromDate: moment(currentStay["epoch_start"] * 1000),
             for: currentStay["length"],
-            toDate: moment(currentStay["epoch_end"] * 1000)
+            toDate: moment(currentStay["epoch_end"] * 1000),
           });
         }
       }
@@ -130,7 +130,7 @@ function updateNomadListData() {
   });
 }
 function updateMood() {
-  needle.get(lifesheetURL, function(error, response, body) {
+  needle.get(lifesheetURL, function (error, response, body) {
     if (error) {
       console.log(error);
     } else if (response.statusCode == 200) {
@@ -172,7 +172,7 @@ function updateMood() {
 
 function updateCommitMessage() {
   let githubURL = "https://api.github.com/users/" + githubUser + "/events";
-  needle.get(githubURL, function(error, response, body) {
+  needle.get(githubURL, function (error, response, body) {
     if (response.statusCode == 200) {
       for (let index in body) {
         let currentEvent = body[index];
@@ -217,7 +217,7 @@ function fetchTrelloItems() {
 
   numberOfTodoItems = 0;
 
-  needle.get(trelloUrl, function(error, response, body) {
+  needle.get(trelloUrl, function (error, response, body) {
     if (error) {
       console.error(error);
     }
@@ -238,7 +238,7 @@ function fetchMostRecentPhotos() {
   let instagramUrl =
     "https://api.instagram.com/v1/users/self/media/recent?access_token=" +
     process.env.INSTAGRAM_ACCESS_TOKEN;
-  needle.get(instagramUrl, function(error, response, body) {
+  needle.get(instagramUrl, function (error, response, body) {
     if (response.statusCode == 200) {
       recentPhotos = [];
       let mostRecentData = body["data"];
@@ -253,7 +253,7 @@ function fetchMostRecentPhotos() {
           text: caption,
           url: currentPhoto["images"]["standard_resolution"]["url"],
           link: currentPhoto["link"],
-          posted: new Date(parseInt(currentPhoto["created_time"]) * 1000)
+          posted: new Date(parseInt(currentPhoto["created_time"]) * 1000),
         });
       }
     } else {
@@ -268,12 +268,12 @@ function updateFoodData() {
     myFitnessPalUser,
     moment().format("YYYY-MM-DD"),
     ["calories", "protein", "carbs", "fat", "entries"],
-    function(data) {
+    function (data) {
       todaysMacros = {
         kcal: data["calories"],
         carbs: data["carbs"],
         protein: data["protein"],
-        fat: data["fat"]
+        fat: data["fat"],
       };
 
       todaysFoodItems = [];
@@ -283,12 +283,12 @@ function updateFoodData() {
           ![
             "TOTAL:",
             "Exercises",
-            "Withings Health Mate  calorie adjustment"
+            "Withings Health Mate  calorie adjustment",
           ].includes(rawFoodItem["name"])
         ) {
           todaysFoodItems.push({
             name: rawFoodItem["name"],
-            amount: rawFoodItem["amount"]
+            amount: rawFoodItem["amount"],
           });
         }
       }
@@ -298,16 +298,14 @@ function updateFoodData() {
         // time zones and stuff, going back to yesterday
         mfp.fetchSingleDate(
           myFitnessPalUser,
-          moment()
-            .subtract(1, "day")
-            .format("YYYY-MM-DD"),
+          moment().subtract(1, "day").format("YYYY-MM-DD"),
           ["calories", "protein", "carbs", "fat"],
-          function(data) {
+          function (data) {
             todaysMacros = {
               kcal: data["calories"],
               carbs: data["carbs"],
               protein: data["protein"],
-              fat: data["fat"]
+              fat: data["fat"],
             };
           }
         );
@@ -320,7 +318,7 @@ function updateCalendar() {
   nextEvents = [];
   let icsUrls = [process.env.ICS_URL, process.env.WORK_ICS_URL];
   for (let index in icsUrls) {
-    ical.fromURL(icsUrls[index], {}, function(err, data) {
+    ical.fromURL(icsUrls[index], {}, function (err, data) {
       console.log("Loaded calendar data");
       for (var k in data) {
         if (data.hasOwnProperty(k)) {
@@ -342,12 +340,12 @@ function updateCalendar() {
               duration:
                 Math.round(
                   moment(ev["end"]).diff(ev["start"], "hours", true) * 10.0
-                ) / 10.0
+                ) / 10.0,
             });
           }
         }
       }
-      nextEvents.sort(function(a, b) {
+      nextEvents.sort(function (a, b) {
         return a["rawStart"] - b["rawStart"];
       });
     });
@@ -429,16 +427,16 @@ function getDataDic() {
       .subtract(-1, "hours") // -1 = VIE, 5 = NYC, 8 = SF
       .format("hh:mm a"), // TODO: actually take the current time zone - nomadlist doens't seem to expose the time zone
     profilePictureUrl: "https://krausefx.com/assets/FelixKrauseCropped.jpg",
-    recentPhotos: recentPhotos
+    recentPhotos: recentPhotos,
   };
 }
 
-app.get("/api.json", function(req, res) {
+app.get("/api.json", function (req, res) {
   if (allDataLoaded()) {
     res.json(getDataDic());
   } else {
     res.json({
-      loading: true
+      loading: true,
     });
   }
 });
