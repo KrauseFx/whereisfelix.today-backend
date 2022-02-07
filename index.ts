@@ -300,7 +300,7 @@ function updateFoodData() {
         mfp.fetchSingleDate(
           myFitnessPalUser,
           moment().subtract(1, "day").format("YYYY-MM-DD"),
-          ["calories", "protein", "carbs", "fat"],
+          ["calories", "protein", "carbs", "fat", "entries"],
           function (data) {
             todaysMacros = {
               kcal: data["calories"],
