@@ -232,6 +232,7 @@ function updateFoodData() {
                 });
             }
         }
+        // If it's after midnight, we just want to fetch the food data for the day before
         // TODO: use promises and reduce duplicate code
         if (todaysMacros.kcal == undefined || todaysMacros.kcal == 0) {
             // time zones and stuff, going back to yesterday
@@ -242,6 +243,22 @@ function updateFoodData() {
                     protein: data["protein"],
                     fat: data["fat"]
                 };
+                // Same for food items
+                if (todaysFoodItems.length == 0) {
+                    for (var rawFoodItemIndex in data["entries"]) {
+                        var rawFoodItem = data["entries"][rawFoodItemIndex];
+                        if (![
+                            "TOTAL:",
+                            "Exercises",
+                            "Withings Health Mate  calorie adjustment",
+                        ].includes(rawFoodItem["name"])) {
+                            todaysFoodItems.push({
+                                name: rawFoodItem["name"],
+                                amount: rawFoodItem["amount"]
+                            });
+                        }
+                    }
+                }
             });
         }
     });
