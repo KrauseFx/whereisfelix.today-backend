@@ -191,7 +191,7 @@ function fetchMostRecentPhotos() {
         files.forEach(function (file) {
             if (file.includes(".jpg")) {
                 recentPhotos.push({
-                    url: "/images/" + file,
+                    url: "https://where-is-felix-today-backend.herokuapp.com/images/" + file,
                     posted: file
                 });
             }
