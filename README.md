@@ -39,7 +39,11 @@ npm run deploy
 
 ## Instagram
 
-### Update: Surprise surprise, Instagram shut down all APIs
+### New approach
+
+Since Facebook doesn't like people using their platform (https://twitter.com/KrauseFx/status/1496158344951873548), and we can't even scrape a public profile, I now have to manually copy & paste my photos. For now, I'm just doing it as part of this repo.
+
+### Old approach: Surprise surprise, Instagram shut down all APIs
 
 Since the Instagram API isn't perfect right now, and probably never will in the near future, this is how you can renew the access token:
 
