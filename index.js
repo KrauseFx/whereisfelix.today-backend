@@ -196,6 +196,9 @@ function fetchMostRecentPhotos() {
                 });
             }
         });
+        recentPhotos = recentPhotos.sort(function (a, b) {
+            return (Number(b["url"].match(/\d+/)[0]) - Number(a["url"].match(/\d+/)[0]));
+        });
     });
 }
 function updateFoodData() {
