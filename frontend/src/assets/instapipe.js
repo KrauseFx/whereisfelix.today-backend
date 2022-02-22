@@ -18,21 +18,12 @@ function preloadStoriesIndex() {
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             storiesContent = JSON.parse(xmlHttp.responseText)
-            if (storiesContent.length == 0) {
-                // Default it's shown, as it looks nicer
-                // and I post stories most days :joy:
-                try {
-                    document.getElementById("story-available").style.opacity = 0.0
-                } catch {
-                    // hacky way to make things work with Angular
-                    setTimeout(function() {
-                        document.getElementById("story-available").style.opacity = 0.0
-                    }, 700)
-                }
-            } else {
+            if (storiesContent.length > 0) {
+                document.getElementById("story-available").classList.remove("story-not-available");
+
                 // preload the first story if it's a picture
                 if (!storiesContent[0]["is_video"]) {
-                    document.getElementById("fakeContentToPreloadImages").src = storiesContent[0]["signed_url"]
+                    document.getElementById("fakeContentToPreloadImages").src = storiesContent[0]["signed_url"];
                 }
             }
         }
