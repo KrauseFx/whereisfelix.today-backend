@@ -184,30 +184,18 @@ function fetchTrelloItems() {
     });
 }
 function fetchMostRecentPhotos() {
-    var instagramUrl = "https://api.instagram.com/v1/users/self/media/recent?access_token=" +
-        process.env.INSTAGRAM_ACCESS_TOKEN;
-    needle.get(instagramUrl, function (error, response, body) {
-        if (response.statusCode == 200) {
-            recentPhotos = [];
-            var mostRecentData = body["data"];
-            for (var i in mostRecentData) {
-                var currentPhoto = mostRecentData[i];
-                var caption = null;
-                if (currentPhoto["caption"] && currentPhoto["caption"]["text"]) {
-                    caption = currentPhoto["caption"]["text"];
-                }
+    var testFolder = "./instagram_posts/";
+    var fs = require("fs");
+    recentPhotos = [];
+    fs.readdir(testFolder, function (err, files) {
+        files.forEach(function (file) {
+            if (file.includes(".jpg")) {
                 recentPhotos.push({
-                    text: caption,
-                    url: currentPhoto["images"]["standard_resolution"]["url"],
-                    link: currentPhoto["link"],
-                    posted: new Date(parseInt(currentPhoto["created_time"]) * 1000)
+                    url: "/images/" + file,
+                    posted: file
                 });
             }
-        }
-        else {
-            console.log(error);
-            console.log(response);
-        }
+        });
     });
 }
 function updateFoodData() {
@@ -322,7 +310,7 @@ function allDataLoaded() {
 // The first number is the # of minutes to wait to reload
 setInterval(updateNomadListData, 60 * 60 * 1000);
 setInterval(updateMood, 30 * 60 * 1000);
-setInterval(fetchMostRecentPhotos, 30 * 60 * 1000);
+setInterval(fetchMostRecentPhotos, 120 * 60 * 1000);
 // setInterval(updateCalendar, 15 * 60 * 1000);
 setInterval(updateCommitMessage, 5 * 60 * 1000);
 setInterval(updateFoodData, 15 * 60 * 1000);
@@ -372,6 +360,11 @@ app.get("/api.json", function (req, res) {
             loading: true
         });
     }
+});
+// Server the image files
+app.get("/images/:filename", function (req, res) {
+    var path = "./instagram_posts/" + req.params.filename;
+    res.sendFile(path, { root: __dirname });
 });
 var port = process.env.PORT || 8080;
 app.listen(port);
