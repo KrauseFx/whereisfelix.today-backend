@@ -11,7 +11,7 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "deploy": "ng build --prod && cp now.json dist/whereisfelix && cd dist/whereisfelix && now --target production && now alias"
+        "deploy": "ng build --prod && cp now.json dist/whereisfelix && cd dist/whereisfelix && vercel --prod && vercel alias"
     },
     "dependencies": {
         "@angular/animations": "~8.2.0",
@@ -27,7 +27,8 @@
         "rxjs-compat": "^6.4.0",
         "tslib": "^1.9.0",
         "zone.js": "~0.10.0",
-        "ngx-moment": "3.4.0"
+        "ngx-moment": "3.4.0",
+        "moment": "^2.24.0"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "~0.803.0",
