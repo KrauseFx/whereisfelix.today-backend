@@ -24,18 +24,7 @@ git push heroku master
 
 ## Frontend
 
-For development
-
-```
-cd frontend
-ng serve
-```
-
-Push to production
-```
-cd frontend
-npm run deploy
-```
+The frontend got moved to [krausefx/whereisfelix.today](https://whereisfelix.today)
 
 ## Instagram
 
