@@ -1,10 +1,10 @@
-# `whereisfelix.today`
+# [`howisFelix.today`](https://howisFelix.today)
 
-## See the result on <a href="https://whereisfelix.today/">whereisfelix.today</a>
+## See the result on <a href="https://howisFelix.today/">howisFelix.today</a>
 
 <img src="https://raw.githubusercontent.com/KrauseFx/whereisfelix.today/master/screenshots/Desktop-1.png" />
 
-<h2 align=center>See the result on <a href="https://whereisfelix.today/">whereisfelix.today</a></h2>
+<h2 align=center>See the result on <a href="https://howisFelix.today/">howisFelix.today</a></h2>
 <p />
 
 
@@ -43,7 +43,7 @@ git push heroku master
 
 ## Frontend
 
-The frontend got moved to [krausefx/whereisfelix.today](https://whereisfelix.today)
+The frontend got moved to [krausefx/howisFelix.today](https://howisFelix.today)
 
 ## Instagram
 
