@@ -11,7 +11,7 @@ app.use(cors());
 // Metadata
 var nomadlistUser = "krausefx";
 var lifesheetURL = "https://fx-life-sheet.herokuapp.com/";
-var googleMapsKey = "AIzaSyDeiw5iiluUP6Txt7H584no1adlsDj-jUc";
+var googleMapsKey = "AIzaSyAPi_2_U8nESwrFZyjP2mkTc0K6D1cJ7FY";
 var githubUser = "KrauseFx";
 var githubFullName = "Felix Krause";
 var myFitnessPalUser = "krausefx1";
