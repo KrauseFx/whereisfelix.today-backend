@@ -290,7 +290,9 @@ function updateFoodData(date = null) {
       }
 
       // If it's after midnight, we just want to fetch the food data for the day before
-      if (todaysMacros.kcal == undefined || todaysMacros.kcal == 0) {
+      // We check for the minimum kcal to be 500, as in the morning I might just have a single snack
+      // and it looks better to render the day before, instead of just a single item
+      if (todaysMacros.kcal == undefined || todaysMacros.kcal < 500) {
         // time zones and stuff, going back to yesterday
         date = date.subtract(1, "day");
         updateFoodData(date);
