@@ -87,10 +87,16 @@ function updateNomadListData() {
       let now = parsedNomadListData["location"]["now"];
       let next = parsedNomadListData["location"]["next"];
 
-      if (now["date_start"] == moment().format("YYYY-MM-DD")) {
+      if (
+        now["date_start"] == moment().format("YYYY-MM-DD") ||
+        now.length == 0
+      ) {
         // Today I'm switching cities, let's show a "moving" status on the website
-        let previous = parsedNomadListData["location"]["previously"];
-        currentCityText = "✈️ " + now["city"];
+        if (!!now["city"]) {
+          currentCityText = "✈️ " + now["city"];
+        } else {
+          currentCityText = "✈️ " + next["city"];
+        }
         isMoving = true;
       } else if (now["country_code"]) {
         currentCityText =
