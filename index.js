@@ -284,7 +284,7 @@ function updateConferences() {
 }
 function generateMapsUrl() {
     return ("https://maps.googleapis.com/maps/api/staticmap?center=" +
-        currentCityText +
+        currentCityText.replace("✈️ ", "") +
         "&zoom=10&size=1200x190&scale=2&maptype=roadmap" +
         "&key=" +
         googleMapsKey);
