@@ -7,7 +7,7 @@
         "prettier": "prettier index.ts --write",
         "dev": "source .keys && prettier index.ts --write && tsc index.ts && node --inspect index.js",
         "start": "NODE_ENV=production node index.js",
-        "deploy": "prettier index.ts --write && tsc index.ts && git push heroku mater"
+        "deploy": "prettier index.ts --write && tsc index.ts"
     },
     "repository": {
         "type": "git",

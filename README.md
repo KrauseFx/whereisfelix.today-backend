@@ -38,8 +38,10 @@ npm run dev
 Push to production
 ```
 npm run dev # to convert typescript
-git push heroku master
+git push origin master
 ```
+
+Deployed on railway.app
 
 ## Frontend
 

@@ -248,7 +248,7 @@ function fetchMostRecentPhotos() {
       if (file.includes(".jpg")) {
         recentPhotos.push({
           url:
-            "https://where-is-felix-today-backend.herokuapp.com/images/" + file,
+            "https://backend.howisfelix.today/images/" + file,
           posted: file,
         });
       }
