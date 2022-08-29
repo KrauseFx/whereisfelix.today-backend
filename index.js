@@ -10,7 +10,7 @@ var mfp = require("mfp"); // MyFitnessPal
 app.use(cors());
 // Metadata
 var nomadlistUser = "krausefx";
-var lifesheetURL = "https://fx-life-sheet.herokuapp.com/";
+var lifesheetURL = "https://fxlifesheet.howisfelix.today/";
 var googleMapsKey = "AIzaSyAPi_2_U8nESwrFZyjP2mkTc0K6D1cJ7FY";
 var githubUser = "KrauseFx";
 var githubFullName = "Felix Krause";
