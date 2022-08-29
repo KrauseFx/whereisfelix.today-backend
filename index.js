@@ -189,21 +189,9 @@ function fetchTrelloItems() {
     });
 }
 function fetchMostRecentPhotos() {
-    var testFolder = "./instagram_posts/";
-    var fs = require("fs");
-    recentPhotos = [];
-    fs.readdir(testFolder, function (err, files) {
-        files.forEach(function (file) {
-            if (file.includes(".jpg")) {
-                recentPhotos.push({
-                    url: "https://backend.howisfelix.today/images/" + file,
-                    posted: file
-                });
-            }
-        });
-        recentPhotos = recentPhotos.sort(function (a, b) {
-            return (Number(b["url"].match(/\d+/)[0]) - Number(a["url"].match(/\d+/)[0]));
-        });
+    var posts = "https://instapipe.net/posts.json?user_id=17841401712160068";
+    needle.get(posts, function (error, response, body) {
+        recentPhotos = body;
     });
 }
 function updateFoodData(date) {

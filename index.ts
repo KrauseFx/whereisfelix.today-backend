@@ -239,25 +239,9 @@ function fetchTrelloItems() {
 }
 
 function fetchMostRecentPhotos() {
-  const testFolder = "./instagram_posts/";
-  const fs = require("fs");
-
-  recentPhotos = [];
-  fs.readdir(testFolder, (err, files) => {
-    files.forEach((file) => {
-      if (file.includes(".jpg")) {
-        recentPhotos.push({
-          url:
-            "https://backend.howisfelix.today/images/" + file,
-          posted: file,
-        });
-      }
-    });
-    recentPhotos = recentPhotos.sort(function (a, b) {
-      return (
-        Number(b["url"].match(/\d+/)[0]) - Number(a["url"].match(/\d+/)[0])
-      );
-    });
+  const posts = "https://instapipe.net/posts.json?user_id=17841401712160068";
+  needle.get(posts, function (error, response, body) {
+    recentPhotos = body;
   });
 }
 
