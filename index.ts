@@ -367,7 +367,7 @@ setInterval(updateMood, 30 * 60 * 1000);
 setInterval(fetchMostRecentPhotos, 120 * 60 * 1000);
 // setInterval(updateCalendar, 15 * 60 * 1000);
 setInterval(updateCommitMessage, 5 * 60 * 1000);
-setInterval(updateFoodData, 15 * 60 * 1000);
+// setInterval(updateFoodData, 15 * 60 * 1000);
 setInterval(fetchTrelloItems, 15 * 60 * 1000);
 
 fetchTrelloItems();
@@ -377,7 +377,7 @@ updateMood();
 // updateCalendar();
 updateConferences();
 updateCommitMessage();
-updateFoodData();
+// updateFoodData();
 
 function getDataDic() {
   return {
