@@ -65,6 +65,7 @@ let currentMoodRelativeTime: String = null;
 let nextEvents: Array<any> = [];
 let nextConferences: Array<Conference> = [];
 let recentPhotos: Array<Photo> = null;
+let websiteVisitors = null;
 let isMoving: Boolean;
 let lastCommitMessage: String;
 let lastCommitRepo: String;
@@ -238,6 +239,67 @@ function fetchTrelloItems() {
   });
 }
 
+function fetchWebsiteVisitors() {
+  const url = "https://plausible.io/api/v1/stats/aggregate?metrics=visitors&";
+  var headers = {
+    headers: { Authorization: "Bearer " + process.env.PLAUSIBLE_BEARER_TOKEN },
+  };
+  websiteVisitors = {
+    "krausefx.com": {},
+    "howisfelix.today": {},
+  };
+
+  needle.get(
+    url + "&site_id=krausefx.com&period=6mo",
+    headers,
+    function (error, response, body) {
+      websiteVisitors["krausefx.com"]["6m"] =
+        body["results"]["visitors"]["value"];
+    }
+  );
+  needle.get(
+    url + "&site_id=krausefx.com&period=30d",
+    headers,
+    function (error, response, body) {
+      websiteVisitors["krausefx.com"]["1m"] =
+        body["results"]["visitors"]["value"];
+    }
+  );
+  needle.get(
+    url + "&site_id=krausefx.com&period=day",
+    headers,
+    function (error, response, body) {
+      websiteVisitors["krausefx.com"]["today"] =
+        body["results"]["visitors"]["value"];
+    }
+  );
+
+  needle.get(
+    url + "&site_id=howisfelix.today&period=6mo",
+    headers,
+    function (error, response, body) {
+      websiteVisitors["howisfelix.today"]["6m"] =
+        body["results"]["visitors"]["value"];
+    }
+  );
+  needle.get(
+    url + "&site_id=howisfelix.today&period=30d",
+    headers,
+    function (error, response, body) {
+      websiteVisitors["howisfelix.today"]["1m"] =
+        body["results"]["visitors"]["value"];
+    }
+  );
+  needle.get(
+    url + "&site_id=howisfelix.today&period=day",
+    headers,
+    function (error, response, body) {
+      websiteVisitors["howisfelix.today"]["today"] =
+        body["results"]["visitors"]["value"];
+    }
+  );
+}
+
 function fetchMostRecentPhotos() {
   const posts = "https://instapipe.net/posts.json?user_id=17841401712160068";
   needle.get(posts, function (error, response, body) {
@@ -365,6 +427,7 @@ function allDataLoaded() {
 setInterval(updateNomadListData, 60 * 60 * 1000);
 setInterval(updateMood, 30 * 60 * 1000);
 setInterval(fetchMostRecentPhotos, 120 * 60 * 1000);
+setInterval(fetchWebsiteVisitors, 200 * 60 * 1000);
 // setInterval(updateCalendar, 15 * 60 * 1000);
 setInterval(updateCommitMessage, 5 * 60 * 1000);
 // setInterval(updateFoodData, 15 * 60 * 1000);
@@ -374,6 +437,7 @@ fetchTrelloItems();
 fetchMostRecentPhotos();
 updateNomadListData();
 updateMood();
+fetchWebsiteVisitors();
 // updateCalendar();
 updateConferences();
 updateCommitMessage();
@@ -405,6 +469,7 @@ function getDataDic() {
       .format("hh:mm a"), // TODO: actually take the current time zone - nomadlist doens't seem to expose the time zone
     profilePictureUrl: "https://krausefx.com/assets/FelixKrauseCropped.jpg",
     recentPhotos: recentPhotos,
+    websiteVisitors: websiteVisitors,
   };
 }
 
