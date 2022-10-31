@@ -430,7 +430,7 @@ setInterval(fetchMostRecentPhotos, 120 * 60 * 1000);
 setInterval(fetchWebsiteVisitors, 200 * 60 * 1000);
 // setInterval(updateCalendar, 15 * 60 * 1000);
 setInterval(updateCommitMessage, 5 * 60 * 1000);
-// setInterval(updateFoodData, 15 * 60 * 1000);
+setInterval(updateFoodData, 15 * 60 * 1000);
 setInterval(fetchTrelloItems, 15 * 60 * 1000);
 
 fetchTrelloItems();
@@ -441,7 +441,7 @@ fetchWebsiteVisitors();
 // updateCalendar();
 updateConferences();
 updateCommitMessage();
-// updateFoodData();
+updateFoodData();
 
 function getDataDic() {
   return {
