@@ -295,7 +295,6 @@ function updateCalendar() {
     }
 }
 function updateConferences() {
-    // TODO: potentially fetch them from https://github.com/KrauseFx/speaking
     nextConferences = [
     // {
     //   location: "Belgrade, Serbia",
@@ -328,7 +327,7 @@ setInterval(fetchMostRecentPhotos, 120 * 60 * 1000);
 setInterval(fetchWebsiteVisitors, 200 * 60 * 1000);
 // setInterval(updateCalendar, 15 * 60 * 1000);
 setInterval(updateCommitMessage, 5 * 60 * 1000);
-setInterval(updateFoodData, 15 * 60 * 1000);
+// setInterval(updateFoodData, 15 * 60 * 1000);
 setInterval(fetchTrelloItems, 15 * 60 * 1000);
 fetchTrelloItems();
 fetchMostRecentPhotos();
@@ -338,7 +337,7 @@ fetchWebsiteVisitors();
 // updateCalendar();
 updateConferences();
 updateCommitMessage();
-updateFoodData();
+// updateFoodData();
 function getDataDic() {
     return {
         currentCityText: currentCityText,
