@@ -65,4 +65,3 @@ Since the Instagram API isn't perfect right now, and probably never will in the 
 
 <img src="screenshots/desktop.png">
 <img src="screenshots/WhereIsFelixScreenshot.jpg">
-
