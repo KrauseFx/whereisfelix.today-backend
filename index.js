@@ -218,7 +218,7 @@ function fetchWebsiteVisitors() {
         websiteVisitors["howisfelix.today"]["1m"] =
             body["results"]["visitors"]["value"];
     });
-    needle.get(url + "&site_id=howisfelix.today&period=custom&date=2021-01-01,2035-01-1", headers, function (error, response, body) {
+    needle.get(url + "&site_id=howisfelix.today&period=custom&date=2021-01-01,2035-01-01", headers, function (error, response, body) {
         websiteVisitors["howisfelix.today"]["alltime"] =
             body["results"]["visitors"]["value"];
     });
